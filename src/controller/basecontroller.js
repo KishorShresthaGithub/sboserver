@@ -11,7 +11,7 @@ const BaseController = {
 
   sendError(res, data, error, status) {
     return res
-      .json({ data: data, errorMessage: error, success: false })
+      .json({ data: data, error: error, success: false })
       .status(status || 500);
   },
 };
