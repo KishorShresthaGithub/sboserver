@@ -1,0 +1,31 @@
+{
+  "name": "src",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "kill-port 3000 && nodemon --exec npx babel-node ./src/bin/www",
+    "clean": "rimraf dist",
+    "build": "npm run clean && babel ./src --out-dir dist --copy-files",
+    "prod": "nodemon ./dist/bin/www.js"
+  },
+  "dependencies": {
+    "cookie-parser": "~1.4.4",
+    "core-js": "^3.15.2",
+    "debug": "~2.6.9",
+    "dotenv": "^10.0.0",
+    "express": "~4.16.1",
+    "morgan": "~1.9.1",
+    "regenerator-runtime": "^0.13.7"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.14.5",
+    "@babel/core": "^7.14.6",
+    "@babel/node": "^7.14.7",
+    "@babel/preset-env": "^7.14.7",
+    "eslint": "^7.30.0",
+    "nodemon": "^2.0.9"
+  },
+  "engines": {
+    "node": "15.X"
+  }
+}
