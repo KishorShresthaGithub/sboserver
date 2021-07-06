@@ -9,10 +9,4 @@ const sqlize = new Sequelize(database, username, password, {
   host: "localhost",
 });
 
-const db = {};
-db.Sequelize = Sequelize;
-db.sequelize = sqlize;
-
-db.users = require("./../models/user")
-
-export default db;
+export default sqlize;
