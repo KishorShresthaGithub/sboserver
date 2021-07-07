@@ -90,4 +90,6 @@ User.beforeCreate((user, options) => {
   });
 });
 
+//User.sync({ force: true });
+
 export default User;

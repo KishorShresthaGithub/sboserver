@@ -1,8 +1,7 @@
-import sqlize from "../database";
-import User, { Role } from "../models/user";
-import BaseController from "./basecontroller";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import User, { Role } from "../models/user";
+import BaseController from "./basecontroller";
 
 const AuthController = {
   /**
@@ -39,11 +38,7 @@ const AuthController = {
 
       return BaseController.sendResponse(res, token, "Login Successful");
     } catch (error) {
-      return BaseController.sendError(
-        res,
-        error.errors,
-        "Something went wrong"
-      );
+      return BaseController.sendError(res, error.errors);
     }
   },
   /**
@@ -76,12 +71,7 @@ const AuthController = {
 
       return BaseController.sendResponse(res, accessToken, "User registered");
     } catch (error) {
-      return BaseController.sendError(
-        res,
-        error.errors,
-        "Something went wrong",
-        500
-      );
+      return BaseController.sendError(res, error.errors);
     }
   },
 
@@ -92,7 +82,6 @@ const AuthController = {
 
     return {
       access_token: token,
-      user: user,
     };
   },
 
@@ -127,14 +116,12 @@ const AuthController = {
         "Changed User Role"
       );
     } catch (error) {
-      return BaseController.sendError(
-        res,
-        error.errors,
-        "Something went wrong",
-        500
-      );
+      return BaseController.sendError(res, error.errors);
     }
   },
+
+  
+
 };
 
 export default AuthController;

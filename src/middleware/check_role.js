@@ -1,15 +1,27 @@
-import { Role } from "./../models/user";
+import User, { Role } from "./../models/user";
 
+/**
+ * Function to check role of user
+ *
+ * @param {Array} roles ["admin","user"]
+ * @returns
+ */
 export default function checkRole(roles) {
   return async (req, res, next) => {
-    const user = req.user;
+    try {
+      const user = await User.findOne({
+        where: {
+          id: req.user.id,
+        },
+      });
+      const hasRole = roles.includes(Role.getString(user.role));
 
-    console.log(Role.getString(user.role));
-    
-    const hasRole = roles.includes(Role.getString(user.role));
+      if (!hasRole) return res.sendStatus(403);
 
-    if (!hasRole) return res.sendStatus(403);
-
-    next();
+      next();
+    } catch (error) {
+      console.log(error);
+      return res.sendStatus(500);
+    }
   };
 }
