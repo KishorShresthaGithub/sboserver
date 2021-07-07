@@ -1,5 +1,5 @@
 import cryptoRandomString from "crypto-random-string";
-import { Sequelize, Model, DataTypes } from "sequelize";
+import { Model, DataTypes } from "sequelize";
 import sqlize from "../database";
 
 class User extends Model {
@@ -9,6 +9,41 @@ class User extends Model {
     return values;
   }
 }
+
+export const Role = Object.freeze({
+  ADMIN: 1,
+  USER: 2,
+
+  get(value) {
+    let role = null;
+    switch (value) {
+      case "admin":
+        role = this.ADMIN;
+        break;
+      case "user":
+        role = this.USER;
+        break;
+      default:
+        role = this.USER;
+    }
+    return role;
+  },
+
+  getString(value) {
+    let role = null;
+    switch (value) {
+      case this.ADMIN:
+        role = "admin";
+        break;
+      case this.USER:
+        role = "user";
+        break;
+      default:
+        role = "user";
+    }
+    return role;
+  },
+});
 
 User.init(
   {
@@ -34,6 +69,11 @@ User.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    role: {
+      type: DataTypes.SMALLINT,
+      allowNull: false,
+      defaultValue: Role.USER,
+    },
   },
   {
     sequelize: sqlize,
@@ -43,8 +83,11 @@ User.init(
   }
 );
 
-User.beforeValidate((user, options) => {
-  user.string_id = cryptoRandomString({ length: 10, type: "distinguishable" });
+User.beforeCreate((user, options) => {
+  user.string_id = cryptoRandomString({
+    length: 10,
+    type: "distinguishable",
+  });
 });
 
 export default User;
