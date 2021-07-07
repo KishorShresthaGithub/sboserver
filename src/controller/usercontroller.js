@@ -29,11 +29,11 @@ const UserController = {
    */
   async getUser(req, res, next) {
     try {
-      const { string_id } = req.params;
+      const { user_string_id } = req.params;
 
       const user = await User.findOne({
         where: {
-          string_id: string_id,
+          string_id: user_string_id,
         },
       });
       return BaseController.sendResponse(res, user.toJSON(), "User Listing");
@@ -74,7 +74,7 @@ const UserController = {
   async updateUser(req, res, next) {
     try {
       //get string id from params and if params not defined get user string id
-      const string_id = req.params.string_id || req.user.string_id;
+      const user_string_id = req.params.user_string_id || req.user.string_id;
 
       //TODO handle request body empty in validation
       //TODO handle email uniqueness when update
@@ -84,7 +84,7 @@ const UserController = {
       //find user
       const user = await User.findOne({
         where: {
-          string_id: string_id,
+          string_id: user_string_id,
         },
       });
 
@@ -105,14 +105,31 @@ const UserController = {
       );
     }
   },
-
+  /**
+   * Method to delete user
+   *
+   * @param {Request} req
+   * @param {Response} res
+   * @param {*} next
+   * @returns
+   */
   async deleteUser(req, res, next) {
     try {
       const user = await User.findOne({
         where: {
-          string_id: req.body.string_id,
+          string_id: req.params.user_string_id,
         },
       });
+
+      const deletedUser = await user.destroy();
+
+      if (!deletedUser) throw new Error({ errors: "Something went wrong" });
+
+      return BaseController.sendResponse(
+        res,
+        user.toJSON(),
+        "User successfully deleted"
+      );
     } catch (error) {
       return BaseController.sendError(res, error.errors);
     }

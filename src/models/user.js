@@ -77,6 +77,7 @@ User.init(
   },
   {
     sequelize: sqlize,
+    paranoid: true,
     tableName: "users",
     createdAt: "created_at",
     updatedAt: "updated_at",

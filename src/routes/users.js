@@ -12,13 +12,17 @@ router.get("/", checkRole(["admin"]), UserController.getAllUsers);
 router.get("/current", UserController.getCurrentUser);
 router.put("/current", UserController.updateUser);
 
-router.get("/:string_id", UserController.getUser);
+router.get("/:user_string_id", UserController.getUser);
 
-router.put("/:string_id", checkRole(["admin"]), UserController.updateUser);
-router.delete("/:string_id", checkRole(["admin"]), UserController.deleteUser);
+router.put("/:user_string_id", checkRole(["admin"]), UserController.updateUser);
+router.delete(
+  "/:user_string_id",
+  checkRole(["admin"]),
+  UserController.deleteUser
+);
 
 router.put(
-  "/:string_id/change_role",
+  "/:user_string_id/change_role",
   checkRole(["admin"]),
   AuthController.changeUserRole
 );

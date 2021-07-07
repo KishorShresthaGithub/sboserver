@@ -94,12 +94,12 @@ const AuthController = {
    */
   async changeUserRole(req, res) {
     try {
-      const { string_id } = req.params;
+      const { user_string_id } = req.params;
       const { role } = req.body;
 
       const userDb = await User.findOne({
         where: {
-          string_id: string_id,
+          string_id: user_string_id,
         },
       });
 
@@ -119,9 +119,6 @@ const AuthController = {
       return BaseController.sendError(res, error.errors);
     }
   },
-
-  
-
 };
 
 export default AuthController;
