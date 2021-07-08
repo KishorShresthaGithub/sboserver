@@ -1,5 +1,5 @@
 {
-  "name": "src",
+  "name": "snakebite",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -12,18 +12,22 @@
     "bcrypt": "^5.0.1",
     "cookie-parser": "~1.4.4",
     "core-js": "^3.15.2",
+    "cors": "^2.8.5",
     "crypto-random-string": "~3.3.1",
     "debug": "~2.6.9",
     "dotenv": "^10.0.0",
     "express": "~4.16.1",
     "jsonwebtoken": "^8.5.1",
+    "md5": "^2.3.0",
     "morgan": "~1.9.1",
+    "multer": "^1.4.2",
     "mysql2": "^2.2.5",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
     "regenerator-runtime": "^0.13.7",
-    "sequelize": "^6.6.4"
+    "sequelize": "^6.6.4",
+    "sharp": "^0.28.3"
   },
   "devDependencies": {
     "@babel/cli": "^7.14.5",

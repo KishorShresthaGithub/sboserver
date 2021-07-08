@@ -60,4 +60,9 @@ typings/
 # next.js build output
 .next
 
-/dist
+*.jpg
+*.png
+*.svg
+*.webp
+
+unsamples/
