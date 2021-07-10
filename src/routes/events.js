@@ -14,4 +14,13 @@ router.post(
   EventController.save
 );
 
+router.put(
+  "/:slug",
+  authenticateToken,
+  imageUpload.single("image"),
+  EventController.update
+);
+
+router.delete("/:slug", authenticateToken, EventController.destroy);
+
 export default router;
