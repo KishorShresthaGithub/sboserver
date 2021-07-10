@@ -1,13 +1,9 @@
-import { Router } from "express";
-import md5 from "md5";
 import multer from "multer";
-import GalleryController from "../controller/gallerycontroller";
 import path from "path";
 import fs from "fs";
+import md5 from "md5";
 
-const router = Router();
-
-const storage = multer.diskStorage({
+export const storage = multer.diskStorage({
   destination(req, file, cb) {
     const pa = path.resolve(__dirname, "../public", "images");
     if (!fs.existsSync(pa)) {
@@ -18,12 +14,12 @@ const storage = multer.diskStorage({
   filename(req, file, cb) {
     let filename = md5(file.fieldname + "" + Date.now());
     filename += `.${file.originalname.split(".")[1]}`; //extension
-
     cb(null, filename);
   },
 });
 
-const upload = multer({
+//image
+export const imageUpload = multer({
   storage,
   fileFilter(req, file, cb) {
     let filetype = file.mimetype === "image/jpeg";
@@ -37,12 +33,3 @@ const upload = multer({
     cb(null, true);
   },
 });
-
-router.post("/", upload.single("images"), GalleryController.uploadImage);
-router.post(
-  "/multiple",
-  upload.array("images"),
-  GalleryController.uploadImages
-);
-
-export default router;

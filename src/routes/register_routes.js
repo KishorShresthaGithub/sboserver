@@ -3,7 +3,8 @@ import AuthController from "../controller/authcontroller";
 import authenticateToken from "../middleware/authenticate_token";
 
 import usersRouter from "./users";
-import galleryRouter from "./gallery";
+import eventsRouter from "./events";
+
 const router = Router();
 
 router.get("/", (req, res) => {
@@ -12,9 +13,11 @@ router.get("/", (req, res) => {
 
 router.post("/login", AuthController.login);
 router.post("/register", AuthController.register);
-router.use("/users", authenticateToken, usersRouter);
 
-router.use("/gallery", galleryRouter);
+router.use("/users", authenticateToken, usersRouter);
+router.use("/events", eventsRouter);
+
+// router.use("/gallery", galleryRouter);
 
 router.use("*", (req, res) => {
   res.send("No resource found").status(404);

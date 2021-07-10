@@ -2,8 +2,9 @@ import sharp from "sharp";
 import BaseController from "./basecontroller";
 import path from "path";
 import fs from "fs";
+import siteurl from "./../helpers/url";
 
-const GalleryController = {
+const UploadController = {
   /**
    * Method to upload image from controller
    *
@@ -15,11 +16,9 @@ const GalleryController = {
       if (!req.file) return res.sendStatus(400);
 
       //upload image
-      const ref = await GalleryController.compressImage(req.file);
+      const ref = await UploadController.compressImage(req.file);
 
-      let url = `${req.protocol}://${req.hostname}${
-        process.env.PORT ? `:${process.env.PORT}` : "80"
-      }`;
+      let url = siteurl;
       //image url
       url += `/public/images/${ref}`;
 
@@ -87,18 +86,14 @@ const GalleryController = {
     try {
       if (!req.files) return res.sendStatus(400);
 
-      //mapping all compression promises 
+      //mapping all compression promises
       const files = req.files.map((file) => {
-        return GalleryController.compressImage(file);
+        return UploadController.compressImage(file);
       });
 
       const urls = await Promise.all(files);
 
-      let host = `${req.protocol}://${req.hostname}${
-        process.env.PORT ? `:${process.env.PORT}` : "80"
-      }`;
-
-      let urlarray = urls.map((url) => `${host}/public/images/${url}`);
+      let urlarray = urls.map((url) => `${siteurl}/public/images/${url}`);
 
       console.log(urlarray);
 
@@ -108,6 +103,10 @@ const GalleryController = {
       return res.sendStatus(500);
     }
   },
+
+  async uploadPDF(req, res) {
+    if (!req.file) return res.sendStatus(400);
+  },
 };
 
-export default GalleryController;
+export default UploadController;

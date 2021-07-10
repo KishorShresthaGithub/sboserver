@@ -81,6 +81,7 @@ User.init(
     tableName: "users",
     createdAt: "created_at",
     updatedAt: "updated_at",
+    deletedAt: "deleted_at",
   }
 );
 
@@ -91,6 +92,6 @@ User.beforeCreate((user, options) => {
   });
 });
 
-//User.sync({ force: true });
+// User.sync({ force: true });
 
 export default User;
