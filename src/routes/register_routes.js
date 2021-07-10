@@ -4,6 +4,7 @@ import authenticateToken from "../middleware/authenticate_token";
 
 import usersRouter from "./users";
 import eventsRouter from "./events";
+import contactRouter from "./contacts";
 
 const router = Router();
 
@@ -16,6 +17,7 @@ router.post("/register", AuthController.register);
 
 router.use("/users", authenticateToken, usersRouter);
 router.use("/events", eventsRouter);
+router.use("/contacts", contactRouter);
 
 // router.use("/gallery", galleryRouter);
 

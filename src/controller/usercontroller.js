@@ -38,7 +38,7 @@ const UserController = {
       });
       return BaseController.sendResponse(res, user.toJSON(), "User Listing");
     } catch (error) {
-      console.error(error);
+      console.log(error);
       return BaseController.sendError(res, error);
     }
   },

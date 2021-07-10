@@ -51,7 +51,7 @@ const UploadController = {
        */
       fs.readFile(file.path, async (err, data) => {
         if (err) {
-          console.error(err);
+          console.log(err);
         }
         //compress image
         await sharp(data)
@@ -63,7 +63,7 @@ const UploadController = {
 
         fs.unlink(file.path, (err) => {
           if (err) {
-            console.error(err);
+            console.log(err);
           }
           console.log("Uploaded: File compressed and original file deleted");
         });

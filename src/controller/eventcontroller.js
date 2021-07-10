@@ -50,7 +50,7 @@ const EventController = {
 
       return BaseController.sendResponse(res, ev.toJSON(), "Event listing");
     } catch (error) {
-      console.error(error);
+      console.log(error);
       return BaseController.sendError(res, error);
     }
   },
@@ -63,7 +63,6 @@ const EventController = {
    */
   async save(req, res) {
     try {
-      //   const { title, date, location, time, description } = req.body;
       const file = req.file || null;
 
       let imageUrl;
@@ -173,7 +172,7 @@ const EventController = {
         "Item Successfully deleted"
       );
     } catch (error) {
-      console.error(error);
+      console.log(error);
       return BaseController.sendError(res, error);
     }
   },

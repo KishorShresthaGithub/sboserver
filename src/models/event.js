@@ -60,6 +60,6 @@ const titleSlug = (ev, options) => {
 Event.beforeCreate(titleSlug);
 Event.beforeUpdate(titleSlug);
 
-//  Event.sync({ force: true });
+ //Event.sync({ force: true });
 
 export default Event;
