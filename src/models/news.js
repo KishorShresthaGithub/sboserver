@@ -28,7 +28,7 @@ const addSlug = (news, options) => {
   slug +=
     "-" +
     cryptoRandomString({
-      length: 10,
+      length: 5,
     });
 
   news.slug = slug;

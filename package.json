@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "kill-port 3000 && nodemon --exec npx babel-node ./src/bin/www",
+    "dev": "kill-port 3000 && nodemon --exec npx babel-node --trace-warnings ./src/bin/www",
     "clean": "rimraf dist",
     "build": "npm run clean && babel ./src --out-dir dist --copy-files",
     "prod": "nodemon ./dist/bin/www.js"

@@ -51,7 +51,7 @@ const AuthController = {
    */
 
   async register(req, res) {
-    //TODO: add login validation
+    //TODO: add login validation and sanitize strings
     try {
       const { first_name, last_name, email, password, c_password } = req.body;
 

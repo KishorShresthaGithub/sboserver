@@ -56,7 +56,7 @@ Event.init(
 const titleSlug = (ev, options) => {
   ev.slug = slugify(ev.title, { replacement: "-", lower: true });
   ev.slug += `-${cryptoRandomString({
-    length: 10,
+    length: 5,
   })}`;
 };
 

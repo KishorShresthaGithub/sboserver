@@ -87,7 +87,7 @@ User.init(
 
 User.beforeCreate((user, options) => {
   user.string_id = cryptoRandomString({
-    length: 10,
+    length: 5,
     type: "distinguishable",
   });
 });
