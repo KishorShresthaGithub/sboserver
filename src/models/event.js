@@ -17,7 +17,11 @@ Event.init(
       allowNull: false,
       unique: true,
     },
-    date: {
+    start_date: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
+    end_date: {
       type: DataTypes.DATE,
       allowNull: false,
     },
@@ -60,6 +64,6 @@ const titleSlug = (ev, options) => {
 Event.beforeCreate(titleSlug);
 Event.beforeUpdate(titleSlug);
 
- //Event.sync({ force: true });
+//Event.sync({ force: true });
 
 export default Event;
