@@ -95,17 +95,34 @@ const UploadController = {
 
       let urlarray = urls.map((url) => `${siteurl}/public/images/${url}`);
 
-      console.log(urlarray);
-
-      return res.send("Check upload multiple image route");
+      return BaseController.sendResponse(res, urlarray, "Upload image array");
     } catch (error) {
       console.log(error);
       return res.sendStatus(500);
     }
   },
 
+  /**
+   * Method to upload multiple image
+   *
+   * @param {Request} req
+   * @returns null|| image url
+   */
   async uploadPDF(req, res) {
-    if (!req.file) return res.sendStatus(400);
+    try {
+      if (!req.file) return res.sendStatus(400);
+
+      const { filename } = req.file;
+
+      let url = siteurl;
+      //pdf url
+      url += `/public/pdf/${filename}`;
+
+      return BaseController.sendResponse(res, { pdf_url: url }, "PDF uploaded");
+    } catch (error) {
+      console.log(error);
+      return BaseController.sendError(res, error);
+    }
   },
 };
 

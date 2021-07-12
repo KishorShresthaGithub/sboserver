@@ -1,17 +1,17 @@
 import { Router } from "express";
-
-import path from "path";
-
-import { imageUpload } from "../helpers/upload";
+import GalleryController from "../controller/uploadcontroller";
+import { imageUpload, pdfUpload } from "../helpers/upload";
 
 const router = Router();
-const pa = path.resolve(__dirname, "../public", "images");
 
 router.post("/", imageUpload.single("image"), GalleryController.uploadImage);
+
 router.post(
   "/multiple",
   imageUpload.array("images"),
   GalleryController.uploadImages
 );
+
+router.post("/pdf", pdfUpload.single("pdf"), GalleryController.uploadPDF);
 
 export default router;
