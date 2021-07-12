@@ -64,5 +64,6 @@ typings/
 *.png
 *.svg
 *.webp
+*.pdf
 
 unsamples/
