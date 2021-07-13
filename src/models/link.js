@@ -14,7 +14,12 @@ Link.init(
       defaultValue: "<h1>Page not created</h1>",
     },
   },
-  { sequelize: sqlize, createdAt: "created_at", updatedAt: "updated_at" }
+  {
+    sequelize: sqlize,
+    tableName: "links",
+    createdAt: "created_at",
+    updatedAt: "updated_at",
+  }
 );
 
 const slugTitle = (model, options) =>

@@ -9,6 +9,7 @@ import newsRouter from "./news";
 import avcRouter from "./avc";
 import galleryRouter from "./upload";
 import linkRouter from "./links";
+import sliderRouter from "./slider";
 
 const router = Router();
 
@@ -26,6 +27,7 @@ router.use("/news", newsRouter);
 router.use("/avcenters", avcRouter);
 router.use("/gallery", galleryRouter);
 router.use("/links", linkRouter);
+router.use("/sliders", sliderRouter);
 
 router.use("*", (req, res) => {
   res.send("No resource found").status(404);
