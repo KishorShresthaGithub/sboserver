@@ -82,23 +82,23 @@ const UploadController = {
    * @param {Request} req
    * @returns null|| image url
    */
-  async uploadImages(req, res) {
+  async uploadImages(files) {
     try {
-      if (!req.files) return res.sendStatus(400);
+      if (!files) return;
 
       //mapping all compression promises
-      const files = req.files.map((file) => {
+      const upload = files.map((file) => {
         return UploadController.compressImage(file);
       });
 
-      const urls = await Promise.all(files);
+      const urls = await Promise.all(upload);
 
       let urlarray = urls.map((url) => `${siteurl}/public/images/${url}`);
 
-      return BaseController.sendResponse(res, urlarray, "Upload image array");
+      return urlarray;
     } catch (error) {
       console.log(error);
-      return res.sendStatus(500);
+      return;
     }
   },
 

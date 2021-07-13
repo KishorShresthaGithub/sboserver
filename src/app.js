@@ -4,11 +4,12 @@ import cookieParser from "cookie-parser";
 import logger from "morgan";
 import router from "./routes/register_routes";
 import cors from "cors";
+import sqlize from "./database";
 
 const app = express();
 
 // (async () => {
-//   sqlize.sync();
+//   sqlize.sync({ force: true });
 // })();
 
 app.use(logger("dev"));

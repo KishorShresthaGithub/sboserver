@@ -31,6 +31,6 @@ Snake.init(
   }
 );
 
-Snake.sync();
+// Snake.sync();
 
 export default Snake;
