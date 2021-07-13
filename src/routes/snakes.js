@@ -9,6 +9,6 @@ router.get("/:slug", SnakeController.show);
 
 router.post("/", authenticateToken, SnakeController.save);
 router.put("/:slug", authenticateToken, SnakeController.update);
-router.delete("/:slug", authenticateToken, SnakeController.delete);
+router.delete("/:slug", authenticateToken, SnakeController.destroy);
 
 export default router;

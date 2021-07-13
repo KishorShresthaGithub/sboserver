@@ -65,20 +65,19 @@ const EventController = {
     try {
       const file = req.file || null;
 
-      let imageUrl;
+      let input = req.body;
+
       if (file) {
-        imageUrl = url;
+        let imageUrl = url;
         const ref = await UploadController.compressImage(file);
         //image url
         imageUrl += `/public/images/${ref}`;
+        input = { ...input, image: { imageUrl } };
       }
 
-      const ev = await Event.create(
-        { ...req.body, image: imageUrl },
-        {
-          skip: ["slug"],
-        }
-      );
+      const ev = await Event.create(input, {
+        skip: ["slug"],
+      });
 
       if (!ev) throw Error();
 
@@ -125,7 +124,6 @@ const EventController = {
         const ref = await UploadController.compressImage(file);
         //image url
         imageUrl += `/public/images/${ref}`;
-
         updatedata = { ...updatedata, image: imageUrl };
       }
 
