@@ -108,17 +108,18 @@ const UploadController = {
    * @param {Request} req
    * @returns null|| image url
    */
-  async uploadPDF(req, res) {
+  async uploadPDF(file) {
     try {
-      if (!req.file) return res.sendStatus(400);
+      if (!file) return;
 
-      const { filename } = req.file;
+      const { filename } = file;
 
       let url = siteurl;
       //pdf url
       url += `/public/pdf/${filename}`;
 
-      return BaseController.sendResponse(res, { pdf_url: url }, "PDF uploaded");
+      return { pdf_url: url };
+      
     } catch (error) {
       console.log(error);
       return BaseController.sendError(res, error);

@@ -7,7 +7,8 @@ class SummaryReport extends Model {}
 SummaryReport.init(
   {
     title: { type: DataTypes.STRING, allowNull: false, unique: true },
-    pdf_link: { type: DataTypes.INTEGER, allowNUll: false },
+    pdf_link: { type: DataTypes.STRING, allowNull: false },
+    show: { type: DataTypes.BOOLEAN, defaultValue: false },
     description: { type: DataTypes.TEXT, allowNull: false },
   },
   {
@@ -18,6 +19,6 @@ SummaryReport.init(
   }
 );
 
-//SummaryReport.sync({ force: true });
+// SummaryReport.sync({ force: true });
 
 export default SummaryReport;

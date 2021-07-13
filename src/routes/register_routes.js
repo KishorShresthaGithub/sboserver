@@ -11,7 +11,7 @@ import galleryRouter from "./gallery";
 import linkRouter from "./links";
 import sliderRouter from "./slider";
 import snakeRouter from "./snakes";
-// import summaryRouter from "./summaryRouter";
+import summaryRouter from "./summaryreport";
 
 const router = Router();
 
@@ -32,7 +32,7 @@ router.use("/links", linkRouter);
 router.use("/sliders", sliderRouter);
 router.use("/snakes", snakeRouter);
 router.use("/gallery", galleryRouter);
-// router.use("/summaryreport", summaryReport);
+router.use("/summaryreport", summaryRouter);
 
 router.use("*", (req, res) => {
   res.send("No resource found").status(404);
