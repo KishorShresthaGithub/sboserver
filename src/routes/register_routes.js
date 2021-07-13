@@ -1,17 +1,22 @@
 import { Router } from "express";
 import AuthController from "../controller/authcontroller";
 import authenticateToken from "../middleware/authenticate_token";
-
-import usersRouter from "./users";
-import eventsRouter from "./events";
-import contactRouter from "./contacts";
-import newsRouter from "./news";
+import {
+  authRegisterValidation,
+  loginValidation,
+} from "../middleware/requests/auth";
 import avcRouter from "./avc";
+import contactRouter from "./contacts";
+import eventsRouter from "./events";
 import galleryRouter from "./gallery";
 import linkRouter from "./links";
+import newsRouter from "./news";
 import sliderRouter from "./slider";
 import snakeRouter from "./snakes";
 import summaryRouter from "./summaryreport";
+import usersRouter from "./users";
+
+import { validationMid } from "../middleware/validation";
 
 const router = Router();
 
@@ -19,8 +24,14 @@ router.get("/", (req, res) => {
   return res.send("Snakebite org API server").status(200);
 });
 
-router.post("/login", AuthController.login);
-router.post("/register", AuthController.register);
+router.post("/login", loginValidation, validationMid, AuthController.login);
+
+router.post(
+  "/register",
+  authRegisterValidation,
+  validationMid,
+  AuthController.register
+);
 
 router.use("/users", authenticateToken, usersRouter);
 router.use("/events", eventsRouter);

@@ -1,5 +1,6 @@
 import User, { Role } from "../models/user";
 import BaseController from "./basecontroller";
+import bcrypt from "bcrypt";
 
 const UserController = {
   /**
@@ -79,7 +80,14 @@ const UserController = {
       //TODO handle request body empty in validation
       //TODO handle email uniqueness when update
       //getting request except role
-      const { role, ...request } = req.body;
+      const { role, password, ...request } = req.body;
+
+      let passwordHash;
+
+      if (password) {
+        passwordHash = await bcrypt.hash(password, 15);
+        request.password = passwordHash;
+      }
 
       //find user
       const user = await User.findOne({

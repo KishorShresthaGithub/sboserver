@@ -1,20 +1,32 @@
 import { Router } from "express";
-import BaseController from "../controller/basecontroller";
 import UserController from "../controller/usercontroller";
 import checkRole from "../middleware/check_role";
-import User from "../models/user";
+import { authUpdateValidation } from "../middleware/requests/auth";
+import { validationMid } from "../middleware/validation";
 import AuthController from "./../controller/authcontroller";
-const router = Router();
 
+const router = Router();
 /* GET users listing. */
 router.get("/", checkRole(["admin"]), UserController.getAllUsers);
 
 router.get("/current", UserController.getCurrentUser);
-router.put("/current", UserController.updateUser);
+router.put(
+  "/current",
+  authUpdateValidation,
+  validationMid,
+  UserController.updateUser
+);
 
 router.get("/:user_string_id", UserController.getUser);
 
-router.put("/:user_string_id", checkRole(["admin"]), UserController.updateUser);
+router.put(
+  "/:user_string_id",
+  checkRole(["admin"]),
+  authUpdateValidation,
+  validationMid,
+  UserController.updateUser
+);
+
 router.delete(
   "/:user_string_id",
   checkRole(["admin"]),

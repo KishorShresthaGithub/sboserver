@@ -2,6 +2,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import User, { Role } from "../models/user";
 import BaseController from "./basecontroller";
+import { validationResult } from "express-validator";
 
 const AuthController = {
   /**
