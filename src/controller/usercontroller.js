@@ -80,7 +80,9 @@ const UserController = {
       //TODO handle request body empty in validation
       //TODO handle email uniqueness when update
       //getting request except role
-      const { role, password, ...request } = req.body;
+      const { role, password, email, ...request } = req.body;
+
+      console.log(request);
 
       let passwordHash;
 
@@ -99,6 +101,9 @@ const UserController = {
       if (!user)
         return BaseController.sendError(res, {}, "User does not exist", 400);
 
+      if (email !== user.email) {
+        request.email = email;
+      }
       //update user
       const update = await user.update(request);
       if (!update) throw Error({ errors: "Something went wrong" });

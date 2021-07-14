@@ -1,5 +1,6 @@
 import { check } from "express-validator";
 import User from "../../models/user";
+import { Op } from "sequelize";
 
 export const authRegisterValidation = [
   check("email")
@@ -34,8 +35,10 @@ export const authUpdateValidation = [
     .isEmail()
     .withMessage("Email must be email")
     .trim()
-    .custom((value) => {
-      return User.findOne({ where: { email: value } }).then((user) => {
+    .custom((value, { req }) => {
+      return User.findOne({
+        where: { email: value, [Op.not]: { id: req.user.id } },
+      }).then((user) => {
         if (user) {
           return Promise.reject("E-mail already in use");
         }
