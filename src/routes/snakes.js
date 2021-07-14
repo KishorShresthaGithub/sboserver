@@ -23,13 +23,13 @@ router.post(
   SnakeController.save
 );
 router.put(
-  "/:slug",
+  "/:id",
   authenticateToken,
   imageUpload.single("image"),
   updateValidation,
   validationMid,
   SnakeController.update
 );
-router.delete("/:slug", authenticateToken, SnakeController.destroy);
+router.delete("/:id", authenticateToken, SnakeController.destroy);
 
 export default router;

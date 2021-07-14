@@ -9,6 +9,7 @@ Link.init(
     title: { type: DataTypes.STRING, allowNull: false },
     link: { type: DataTypes.STRING, allowNull: false, unique: true },
     parent_link: { type: DataTypes.INTEGER },
+    postion: { type: DataTypes.INTEGER },
     page: {
       type: DataTypes.TEXT,
       allowNull: true,
@@ -29,6 +30,6 @@ const slugTitle = (model, options) =>
 Link.beforeCreate(slugTitle);
 Link.beforeUpdate(slugTitle);
 
-// Link.sync({ force: true });
+//Link.sync({ force: true });
 
 export default Link;

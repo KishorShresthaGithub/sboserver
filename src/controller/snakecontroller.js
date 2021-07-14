@@ -35,11 +35,11 @@ const SnakeController = {
    */
   async show(req, res) {
     try {
-      const { slug } = req.params;
+      const { id } = req.params;
 
       const ev = await Snake.findOne({
         where: {
-          id: slug,
+          id,
         },
       });
 
@@ -96,11 +96,11 @@ const SnakeController = {
   async update(req, res) {
     try {
       //TODO move to validation middleware
-      const { slug } = req.params;
+      const { id } = req.params;
 
       const ev = await Snake.findOne({
         where: {
-          id: slug,
+          id,
         },
       });
 
@@ -145,11 +145,11 @@ const SnakeController = {
   async destroy(req, res) {
     try {
       //TODO move to validation middleware
-      const { slug } = req.params;
+      const { id } = req.params;
 
       const ev = await Snake.findOne({
         where: {
-          id: slug,
+          id,
         },
       });
 

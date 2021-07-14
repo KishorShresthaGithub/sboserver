@@ -39,7 +39,7 @@ const GalleryController = {
         return BaseController.sendError(res, null, "Please upload images", 400);
 
       const gallery = await Gallery.create(req.body, {
-        skip: "gallery",
+        skip: "slug",
       });
 
       if (!gallery) throw new Error();
@@ -88,7 +88,9 @@ const GalleryController = {
   },
   async destroy(req, res) {
     try {
-      const gallery = await Gallery.findOne({ where: { id: gallery } });
+      const gallery = await Gallery.findOne({
+        where: { id: req.params.gallery },
+      });
 
       if (!gallery)
         return BaseController.sendError(res, {}, "Gallery not found", 404);

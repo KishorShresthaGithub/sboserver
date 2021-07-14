@@ -28,13 +28,13 @@ router.post(
 );
 
 router.put(
-  "/:slug",
+  "/:id",
   authenticateToken,
   updateValidation,
   validationMid,
   AVCcontroller.update
 );
 
-router.delete("/:slug", authenticateToken, AVCcontroller.destroy);
+router.delete("/:id", authenticateToken, AVCcontroller.destroy);
 
 export default router;

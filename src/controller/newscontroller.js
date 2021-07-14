@@ -103,11 +103,11 @@ const NewsController = {
   async update(req, res) {
     try {
       //TODO move to validation middleware
-      const { slug } = req.params;
+      const { id } = req.params;
 
       const ev = await News.findOne({
         where: {
-          slug,
+          id,
         },
       });
 
@@ -152,11 +152,11 @@ const NewsController = {
   async destroy(req, res) {
     try {
       //TODO move to validation middleware
-      const { slug } = req.params;
+      const { id } = req.params;
 
       const ev = await News.findOne({
         where: {
-          slug,
+          id,
         },
       });
 

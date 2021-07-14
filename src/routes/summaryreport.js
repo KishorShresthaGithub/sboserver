@@ -23,13 +23,13 @@ router.post(
   SummaryReportController.save
 );
 router.put(
-  "/:slug",
+  "/:id",
   authenticateToken,
   pdfUpload.single("pdf_link"),
   updateValidation,
   validationMid,
   SummaryReportController.update
 );
-router.delete("/:slug", authenticateToken, SummaryReportController.destroy);
+router.delete("/:id", authenticateToken, SummaryReportController.destroy);
 
 export default router;

@@ -46,8 +46,9 @@ router.use("/snakes", snakeRouter);
 router.use("/gallery", galleryRouter);
 router.use("/summaryreport", summaryRouter);
 
-router.use(
+router.post(
   "/upload_file",
+  authenticateToken,
   imageUpload.single("image"),
   UploadController.uploadImage
 );

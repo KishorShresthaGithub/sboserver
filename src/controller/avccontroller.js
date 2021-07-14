@@ -43,8 +43,6 @@ const AVCcontroller = {
         group: "district",
       });
 
-      console.log(districts);
-
       return BaseController.sendResponse(res, districts, "District listing");
     } catch (error) {
       return BaseController.sendError(res, error);
@@ -63,7 +61,6 @@ const AVCcontroller = {
         where: { district: req.params.district },
       });
 
-      console.log("disctricts");
       return BaseController.sendResponse(res, avc, "District listing");
     } catch (error) {
       return BaseController.sendError(res, error);
@@ -132,11 +129,11 @@ const AVCcontroller = {
   async update(req, res) {
     try {
       //TODO move to validation middleware
-      const { slug } = req.params;
+      const { id } = req.params;
 
       const ev = await AVCenter.findOne({
         where: {
-          slug,
+          id,
         },
       });
 
@@ -166,11 +163,11 @@ const AVCcontroller = {
   async destroy(req, res) {
     try {
       //TODO move to validation middleware
-      const { slug } = req.params;
+      const { id } = req.params;
 
       const ev = await AVCenter.findOne({
         where: {
-          slug,
+          id,
         },
       });
 

@@ -64,11 +64,11 @@ const SummaryReportController = {
    */
   async show(req, res) {
     try {
-      const { slug } = req.params;
+      const { id } = req.params;
 
       const ev = await SummaryReport.findOne({
         where: {
-          id: slug,
+          id,
         },
       });
 
@@ -132,11 +132,11 @@ const SummaryReportController = {
   async update(req, res) {
     try {
       //TODO move to validation middleware
-      const { slug } = req.params;
+      const { id } = req.params;
 
       const ev = await SummaryReport.findOne({
         where: {
-          id: slug,
+          id,
         },
       });
 
@@ -181,11 +181,11 @@ const SummaryReportController = {
   async destroy(req, res) {
     try {
       //TODO move to validation middleware
-      const { slug } = req.params;
+      const { id } = req.params;
 
       const ev = await SummaryReport.findOne({
         where: {
-          id: slug,
+          id,
         },
       });
 

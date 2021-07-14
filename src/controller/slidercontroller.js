@@ -35,11 +35,11 @@ const SliderController = {
    */
   async show(req, res) {
     try {
-      const { slug } = req.params;
+      const { id } = req.params;
 
       const ev = await Slider.findOne({
         where: {
-          id: slug,
+          id,
         },
       });
 
@@ -96,11 +96,11 @@ const SliderController = {
   async update(req, res) {
     try {
       //TODO move to validation middleware
-      const { slug } = req.params;
+      const { id } = req.params;
 
       const ev = await Slider.findOne({
         where: {
-          id: slug,
+          id,
         },
       });
 
@@ -146,11 +146,11 @@ const SliderController = {
   async destroy(req, res) {
     try {
       //TODO move to validation middleware
-      const { slug } = req.params;
+      const { id } = req.params;
 
       const ev = await Slider.findOne({
         where: {
-          id: slug,
+          id,
         },
       });
 

@@ -22,7 +22,7 @@ router.post(
 );
 
 router.put(
-  "/:slug",
+  "/:id",
   authenticateToken,
   imageUpload.single("image"),
   updateValidation,
@@ -30,6 +30,6 @@ router.put(
   EventController.update
 );
 
-router.delete("/:slug", authenticateToken, EventController.destroy);
+router.delete("/:id", authenticateToken, EventController.destroy);
 
 export default router;

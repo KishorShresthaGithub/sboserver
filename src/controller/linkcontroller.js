@@ -22,6 +22,8 @@ const LinkController = {
         }
       }
 
+      temp = temp.sort((a, b) => parseInt(a.position) - parseInt(b.position));
+
       return BaseController.sendResponse(res, temp, "Navigation");
     } catch (error) {
       console.log(error);
@@ -35,6 +37,9 @@ const LinkController = {
         where: { id: req.params.id },
         raw: true,
       });
+
+      if (!dblink)
+        return BaseController.sendError(res, null, "Link not found", 404);
 
       const link = { ...dblink };
 
@@ -69,8 +74,9 @@ const LinkController = {
   async update(req, res) {
     try {
       const link = await Link.findOne({
-        where: { id: req.params.id, [Op.not]: { parent_link: null } },
+        where: { id: req.params.id },
       });
+      console.log(req.body);
 
       if (!link) return BaseController.sendError(res, {}, 404);
 

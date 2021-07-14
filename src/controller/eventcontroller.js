@@ -102,11 +102,11 @@ const EventController = {
   async update(req, res) {
     try {
       //TODO move to validation middleware
-      const { slug } = req.params;
+      const { id } = req.params;
 
       const ev = await Event.findOne({
         where: {
-          slug,
+          id,
         },
       });
 
@@ -150,11 +150,11 @@ const EventController = {
   async destroy(req, res) {
     try {
       //TODO move to validation middleware
-      const { slug } = req.params;
+      const { id } = req.params;
 
       const ev = await Event.findOne({
         where: {
-          slug,
+          id,
         },
       });
 
