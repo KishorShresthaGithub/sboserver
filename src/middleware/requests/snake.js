@@ -1,9 +1,15 @@
 import { check } from "express-validator";
 
 export const createValidation = [
-  check("name").notEmpty().trim(),
-  check("scientific_name").notEmpty().trim(),
-  check("description").notEmpty().trim(),
+  check("name").notEmpty().withMessage("Name should not be empty").trim(),
+  check("scientific_name")
+    .notEmpty()
+    .withMessage("Scientific Name should not be empty")
+    .trim(),
+  check("description")
+    .notEmpty()
+    .withMessage("Description should not be empty")
+    .trim(),
 ];
 
 export const updateValidation = [

@@ -1,8 +1,10 @@
 import { check } from "express-validator";
 
 export const createValidation = [
-  check("title").notEmpty().trim(),
-  check("description").notEmpty(),
+  check("title").notEmpty().withMessage("Title should not be empty").trim(),
+  check("description")
+    .notEmpty()
+    .withMessage("Description should not be empty"),
 ];
 
 export const updateValidation = [

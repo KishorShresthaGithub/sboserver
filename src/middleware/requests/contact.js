@@ -1,15 +1,16 @@
 import { check } from "express-validator";
 
 export const createValidation = [
-  check("name").notEmpty().trim(),
-  check("address").notEmpty().trim(),
+  check("name").notEmpty().withMessage("Name should not be empty").trim(),
+  check("address").notEmpty().withMessage("Address should not be empty").trim(),
   check("email")
     .isEmail()
     .withMessage("Email should be a valid email")
     .notEmpty()
+    .withMessage("Email should not be empty")
     .trim(),
-  check("phone").notEmpty().trim(),
-  check("message").notEmpty(),
+  check("phone").notEmpty().withMessage("Phone should not be empty").trim(),
+  check("message").notEmpty().withMessage("Message should not be empty"),
 ];
 
 export const updateValidation = [

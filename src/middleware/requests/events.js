@@ -1,12 +1,12 @@
 import { check } from "express-validator";
 
 export const createValidation = [
-  check("title").notEmpty().trim(),
-  check("start_date").notEmpty().trim(),
-  check("end_date").notEmpty().trim(),
-  check("location").notEmpty().trim(),
-  check("time").notEmpty(),
-  check("description").notEmpty(),
+  check("title").notEmpty().withMessage("Title is required").trim(),
+  check("start_date").notEmpty().withMessage("Start Date is required").trim(),
+  check("end_date").notEmpty().withMessage("End Date is required").trim(),
+  check("location").notEmpty().withMessage("Location is required").trim(),
+  check("time").notEmpty().withMessage("Time is required"),
+  check("description").notEmpty().withMessage("Description is required"),
 ];
 
 export const updateValidation = [

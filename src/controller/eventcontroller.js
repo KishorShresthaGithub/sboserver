@@ -134,7 +134,7 @@ const EventController = {
       return BaseController.sendResponse(
         res,
         ev.toJSON(),
-        "Event successfully added"
+        "Event successfully updated"
       );
     } catch (error) {
       console.log(error);

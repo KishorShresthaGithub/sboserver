@@ -1,7 +1,7 @@
 import { check } from "express-validator";
 
 export const createValidation = [
-  check("title").notEmpty().trim(),
+  check("title").notEmpty().withMessage("Title should not be empty").trim(),
   check("description").optional().trim(),
 ];
 
