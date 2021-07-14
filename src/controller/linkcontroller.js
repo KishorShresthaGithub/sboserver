@@ -1,3 +1,4 @@
+import { Op } from "sequelize";
 import Link from "../models/link";
 import BaseController from "./basecontroller";
 
@@ -67,8 +68,9 @@ const LinkController = {
 
   async update(req, res) {
     try {
-      //todo only accept parent_link with null
-      const link = await Link.findAll({ raw: true });
+      const link = await Link.findOne({
+        where: { id: req.params.id, [Op.not]: { parent_link: null } },
+      });
 
       if (!link) return BaseController.sendError(res, {}, 404);
 
@@ -82,6 +84,7 @@ const LinkController = {
       return BaseController.sendError(res, error);
     }
   },
+
   async delete(req, res) {
     try {
       const link = await Link.findOne({

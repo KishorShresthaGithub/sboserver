@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { imageUpload } from "../helpers/upload";
 import authenticateToken from "../middleware/authenticate_token";
 import {
   createValidation,
@@ -16,6 +17,7 @@ router.get("/:slug", SnakeController.show);
 router.post(
   "/",
   authenticateToken,
+  imageUpload.single("image"),
   createValidation,
   validationMid,
   SnakeController.save
@@ -23,6 +25,7 @@ router.post(
 router.put(
   "/:slug",
   authenticateToken,
+  imageUpload.single("image"),
   updateValidation,
   validationMid,
   SnakeController.update

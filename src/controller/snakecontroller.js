@@ -3,6 +3,7 @@ import UploadController from "./uploadcontroller";
 import Snaker from "../models/Snake";
 import url from "../helpers/url";
 import { Op } from "sequelize";
+import Snake from "../models/Snake";
 
 const SnakeController = {
   /**
@@ -16,11 +17,10 @@ const SnakeController = {
   async index(req, res) {
     try {
       const Snakes = await Snake.findAll({
-        order: ["name", "ASC"],
+        order: [["name", "ASC"]],
       });
 
       return BaseController.sendResponse(res, Snakes, "Snakes listing");
-
     } catch (error) {
       console.log(error);
       return BaseController.sendError(res, error);
@@ -63,7 +63,7 @@ const SnakeController = {
       const file = req.file || null;
 
       let imageUrl;
-      
+
       if (file) {
         imageUrl = url;
         const ref = await UploadController.compressImage(file);

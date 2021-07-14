@@ -6,6 +6,7 @@ class Link extends Model {}
 
 Link.init(
   {
+    title: { type: DataTypes.STRING, allowNull: false },
     link: { type: DataTypes.STRING, allowNull: false, unique: true },
     parent_link: { type: DataTypes.INTEGER },
     page: {
