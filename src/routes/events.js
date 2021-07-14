@@ -3,8 +3,8 @@ import EventController from "../controller/eventcontroller";
 import { imageUpload } from "../helpers/upload";
 import authenticateToken from "../middleware/authenticate_token";
 import {
-  createEventValidation,
-  updateEventValidation,
+  createValidation,
+  updateValidation,
 } from "../middleware/requests/events";
 import { validationMid } from "../middleware/validation";
 
@@ -16,7 +16,7 @@ router.post(
   "/",
   authenticateToken,
   imageUpload.single("image"),
-  createEventValidation,
+  createValidation,
   validationMid,
   EventController.save
 );
@@ -25,7 +25,7 @@ router.put(
   "/:slug",
   authenticateToken,
   imageUpload.single("image"),
-  updateEventValidation,
+  updateValidation,
   validationMid,
   EventController.update
 );

@@ -2,6 +2,11 @@ import { Router } from "express";
 import GalleryController from "../controller/gallerycontroller";
 import { imageUpload } from "../helpers/upload";
 import authenticateToken from "../middleware/authenticate_token";
+import {
+  createValidation,
+  updateValidation,
+} from "../middleware/requests/gallery";
+import { validationMid } from "../middleware/validation";
 
 const router = Router();
 
@@ -12,14 +17,19 @@ router.post(
   "/",
   authenticateToken,
   imageUpload.array("images"),
+  createValidation,
+  validationMid,
   GalleryController.save
 );
 router.put(
   "/:gallery",
   authenticateToken,
   imageUpload.single("image"),
+  updateValidation,
+  validationMid,
   GalleryController.update
 );
+
 router.delete("/:gallery", authenticateToken, GalleryController.destroy);
 
 router.post(

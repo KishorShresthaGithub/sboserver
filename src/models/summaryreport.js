@@ -6,7 +6,7 @@ class SummaryReport extends Model {}
 
 SummaryReport.init(
   {
-    title: { type: DataTypes.STRING, allowNull: false, unique: true },
+    title: { type: DataTypes.STRING, allowNull: false },
     pdf_link: { type: DataTypes.STRING, allowNull: false },
     show: { type: DataTypes.BOOLEAN, defaultValue: false },
     description: { type: DataTypes.TEXT, allowNull: false },

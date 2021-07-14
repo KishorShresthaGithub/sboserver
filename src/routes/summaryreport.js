@@ -1,6 +1,11 @@
 import { Router } from "express";
 import { pdfUpload } from "../helpers/upload";
 import authenticateToken from "../middleware/authenticate_token";
+import {
+  createValidation,
+  updateValidation,
+} from "../middleware/requests/summaryreport";
+import { validationMid } from "../middleware/validation";
 import SummaryReportController from "./../controller/SummaryReportcontroller";
 
 const router = Router();
@@ -13,12 +18,16 @@ router.post(
   "/",
   authenticateToken,
   pdfUpload.single("pdf_link"),
+  createValidation,
+  validationMid,
   SummaryReportController.save
 );
 router.put(
   "/:slug",
   authenticateToken,
   pdfUpload.single("pdf_link"),
+  updateValidation,
+  validationMid,
   SummaryReportController.update
 );
 router.delete("/:slug", authenticateToken, SummaryReportController.destroy);

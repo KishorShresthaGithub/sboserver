@@ -7,7 +7,7 @@ class Gallery extends Model {}
 
 Gallery.init(
   {
-    title: { type: DataTypes.STRING, allowNull: false, unique: true },
+    title: { type: DataTypes.STRING, allowNull: false },
     slug: { type: DataTypes.STRING, unique: true, allowNull: false },
     description: { type: DataTypes.TEXT },
   },

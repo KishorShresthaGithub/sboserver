@@ -1,10 +1,13 @@
 import { Router } from "express";
 import AuthController from "../controller/authcontroller";
+import UploadController from "../controller/uploadcontroller";
+import { imageUpload } from "../helpers/upload";
 import authenticateToken from "../middleware/authenticate_token";
 import {
   authRegisterValidation,
   loginValidation,
 } from "../middleware/requests/auth";
+import { validationMid } from "../middleware/validation";
 import avcRouter from "./avc";
 import contactRouter from "./contacts";
 import eventsRouter from "./events";
@@ -15,8 +18,6 @@ import sliderRouter from "./slider";
 import snakeRouter from "./snakes";
 import summaryRouter from "./summaryreport";
 import usersRouter from "./users";
-
-import { validationMid } from "../middleware/validation";
 
 const router = Router();
 
@@ -44,6 +45,12 @@ router.use("/sliders", sliderRouter);
 router.use("/snakes", snakeRouter);
 router.use("/gallery", galleryRouter);
 router.use("/summaryreport", summaryRouter);
+
+router.use(
+  "/upload_file",
+  imageUpload.single("image"),
+  UploadController.uploadImage
+);
 
 router.use("*", (req, res) => {
   res.send("No resource found").status(404);
