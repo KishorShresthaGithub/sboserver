@@ -72,7 +72,7 @@ const EventController = {
         const ref = await UploadController.compressImage(file);
         //image url
         imageUrl += `/public/images/${ref}`;
-        input = { ...input, image: { imageUrl } };
+        input = { ...input, image: imageUrl };
       }
 
       const ev = await Event.create(input, {

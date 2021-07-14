@@ -52,6 +52,7 @@ const UploadController = {
       fs.readFile(file.path, async (err, data) => {
         if (err) {
           console.log(err);
+          return;
         }
         //compress image
         await sharp(data)
@@ -64,6 +65,7 @@ const UploadController = {
         fs.unlink(file.path, (err) => {
           if (err) {
             console.log(err);
+            return;
           }
           console.log("Uploaded: File compressed and original file deleted");
         });
@@ -119,7 +121,6 @@ const UploadController = {
       url += `/public/pdf/${filename}`;
 
       return { pdf_url: url };
-      
     } catch (error) {
       console.log(error);
       return BaseController.sendError(res, error);
