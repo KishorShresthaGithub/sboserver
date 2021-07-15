@@ -39,7 +39,7 @@ const LinkController = {
   async all(req, res) {
     try {
       const dblinks = await Link.findAll({
-        order: [["parent_link", "DESC"]],
+        order: [["parent_link", "ASC"]],
         raw: true,
       });
       const links = [...dblinks];
