@@ -21,7 +21,6 @@ AVCenter.init(
     },
     map_location: {
       type: DataTypes.TEXT,
-      allowNull: false,
     },
     district: {
       type: DataTypes.STRING,
@@ -53,6 +52,6 @@ const addSlug = (avc, options) => {
 AVCenter.beforeCreate(addSlug);
 AVCenter.beforeUpdate(addSlug);
 
-// AVCenter.sync({ force: true });
+//AVCenter.sync({ force: true });
 
 export default AVCenter;

@@ -7,8 +7,7 @@ export const createValidation = [
     .optional()
     .toInt()
     .isNumeric()
-    .withMessage("Parent link value should be a number")
-    .trim(),
+    .withMessage("Parent link value should be a number"),
   check("page").optional().trim(),
 ];
 
@@ -21,6 +20,6 @@ export const updateValidation = [
     .notEmpty()
     .withMessage(" Links cannot be empty"),
   check("position").optional().toInt().isNumeric(),
-  check("parent_link").optional().toInt().isNumeric().trim(),
+  check("parent_link").optional().toInt().isNumeric(),
   check("page").optional().trim(),
 ];

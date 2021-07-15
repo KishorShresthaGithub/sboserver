@@ -5,11 +5,16 @@ import BaseController from "./basecontroller";
 const LinkController = {
   async index(req, res) {
     try {
-      const dblinks = await Link.findAll({ raw: true });
-      const links = [...dblinks];
+      const dblinks = await Link.findAll({
+        order: [["parent_link", "ASC"]],
+        raw: true,
+      });
 
-      links.forEach((e) => {
-        if (!e.parent_link) e.sub_links = [];
+      let links = [...dblinks];
+
+      links = links.map((e) => {
+        e.sub_links = [];
+        return e;
       });
 
       let temp = [];
@@ -18,8 +23,35 @@ const LinkController = {
         if (links[i].parent_link === null) temp.push(links[i]);
         else {
           let parent = links.find((res) => res.id === links[i].parent_link);
+          links[i].link = `${parent.link}/${links[i].link}`;
           parent.sub_links.push(links[i]);
         }
+      }
+
+      temp = temp.sort((a, b) => parseInt(a.position) - parseInt(b.position));
+
+      return BaseController.sendResponse(res, temp, "Navigation");
+    } catch (error) {
+      console.log(error);
+      return BaseController.sendError(res, error);
+    }
+  },
+  async all(req, res) {
+    try {
+      const dblinks = await Link.findAll({
+        order: [["parent_link", "DESC"]],
+        raw: true,
+      });
+      const links = [...dblinks];
+
+      let temp = [];
+
+      for (let i = 0; i < links.length; i++) {
+        if (links[i].parent_link !== null) {
+          let parent = links.find((res) => res.id === links[i].parent_link);
+          links[i].link = `${parent.link}/${links[i].link}`;
+        }
+        temp.push(links[i]);
       }
 
       temp = temp.sort((a, b) => parseInt(a.position) - parseInt(b.position));
@@ -76,7 +108,6 @@ const LinkController = {
       const link = await Link.findOne({
         where: { id: req.params.id },
       });
-      console.log(req.body);
 
       if (!link) return BaseController.sendError(res, {}, 404);
 

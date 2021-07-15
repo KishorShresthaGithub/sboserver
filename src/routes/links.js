@@ -10,6 +10,7 @@ import { validationMid } from "../middleware/validation";
 const router = Router();
 
 router.get("/", LinkController.index);
+router.get("/all", LinkController.all);
 router.get("/:id", LinkController.show);
 
 router.post(
