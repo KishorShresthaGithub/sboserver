@@ -49,9 +49,11 @@ const UploadController = {
        * Performing readfile to extract buffer for sharp module
        * When using multer the file is already uploaded
        */
+
       fs.readFile(file.path, async (err, data) => {
         if (err) {
-          console.log(err);
+          UploadController.unlinkFile(file.path);
+
           return;
         }
         //compress image
@@ -59,16 +61,18 @@ const UploadController = {
           .webp({ quality: 20 })
           .toFile(path.resolve(destination, ref))
           .catch((err) => {
-            console.log(err);
+            fs.unlink(file.path, (err) => {
+              if (err) {
+                console.log(err);
+                return;
+              }
+              console.log(
+                "Uploaded: File compressed and original file deleted"
+              );
+            });
           });
-
-        fs.unlink(file.path, (err) => {
-          if (err) {
-            console.log(err);
-            return;
-          }
-          console.log("Uploaded: File compressed and original file deleted");
-        });
+        //unlink original file
+        UploadController.unlinkFile(file.path);
       });
 
       return ref;
@@ -125,6 +129,45 @@ const UploadController = {
       console.log(error);
       return BaseController.sendError(res, error);
     }
+  },
+  /**
+   * Unlink file
+   *
+   * @param {*} file
+   * @returns
+   */
+  async unlinkFile(file) {
+    if (!fs.existsSync(file)) {
+      console.log("File not found");
+      return;
+    }
+
+    fs.unlink(file, (err) => {
+      if (err) {
+        console.log(err, " Something went wrong");
+        return;
+      }
+      console.log("File has been deleted");
+      return "File deleted";
+    });
+
+    return true;
+  },
+  /**
+   * Method to delete files from file url
+   *
+   * @param {Url of model} url
+   * @returns
+   */
+  async unlinkUrl(url) {
+    let image = new URL(url);
+
+    let imagepath = image.pathname.split("/").filter(Boolean);
+    imagepath = [__dirname, "../", ...imagepath];
+
+    let filepath = imagepath.reduce((a, i) => path.join(a, i));
+
+    return await UploadController.unlinkFile(filepath).catch(console.log);
   },
 };
 

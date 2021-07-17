@@ -1,4 +1,5 @@
 import jwt from "jsonwebtoken";
+import BaseController from "../controller/basecontroller";
 
 /**
  *
@@ -11,14 +12,15 @@ import jwt from "jsonwebtoken";
  */
 export default function authenticateToken(req, res, next) {
   const authHeader = req.headers["authorization"];
-  const token = authHeader.split(" ")[1];
+  const token = authHeader && authHeader.split(" ")[1];
 
-  if (token === null) return res.sendStatus(401);
+  if (token === null)
+    return BaseController.sendError(res, {}, "Not logged in", 401);
 
   jwt.verify(token, process.env.JWT_TOKEN_SECRET, (err, payload) => {
     if (err) {
       console.log(err);
-      return res.sendStatus(403);
+      return BaseController.sendError(res, {}, "Invalid token", 403);
     }
     req.user = payload;
     next();

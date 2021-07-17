@@ -173,6 +173,9 @@ const GalleryController = {
       if (!galleryImage)
         return BaseController.sendError(res, {}, "Gallery not found", 404);
 
+      if (!UploadController.unlinkUrl(galleryImage.image))
+        throw Error("File not deleted");
+
       if (!galleryImage.destroy())
         throw new Error("Something went wrong when deleting");
 

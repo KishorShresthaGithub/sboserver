@@ -18,6 +18,8 @@ import sliderRouter from "./slider";
 import snakeRouter from "./snakes";
 import summaryRouter from "./summaryreport";
 import usersRouter from "./users";
+import siteurl from "../helpers/url";
+import BaseController from "../controller/basecontroller";
 
 const router = Router();
 
@@ -52,6 +54,14 @@ router.post(
   imageUpload.single("image"),
   UploadController.uploadImage
 );
+
+router.delete("/unlink", async (req, res) => {
+  let unlink = await UploadController.unlinkUrl(req.body.url);
+
+  if (!unlink) return BaseController.sendError(res, {}, "File not unlinked");
+
+  return BaseController.sendResponse(res, {}, "File has been deleted");
+});
 
 router.use("*", (req, res) => {
   res.send("No resource found").status(404);
