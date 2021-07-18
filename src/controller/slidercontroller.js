@@ -109,7 +109,10 @@ const SliderController = {
 
       //   const { title, date, location, time, description } = req.body;
       const file = req.file || null;
-      //TODO validation empty body;
+
+      if (file && !(await UploadController.unlinkUrl(ev.image)))
+        throw new Error("File has not been deleted");
+
       let updatedata = req.body;
 
       let imageUrl;
@@ -156,6 +159,9 @@ const SliderController = {
 
       if (!ev)
         return BaseController.sendError(res, {}, "Slider not found", 404);
+
+      if (!(await UploadController.unlinkUrl(ev.image)))
+        throw new Error("File not deleted");
 
       let deleteData = await ev.destroy();
 

@@ -17,7 +17,7 @@ const EventController = {
       const { limit } = req.query;
 
       let options = {
-        order: [["created_at", "DESC"]],
+        order: [["start_date", "ASC"]],
       };
 
       if (limit) options.limit = parseInt(limit);
@@ -64,7 +64,6 @@ const EventController = {
   async save(req, res) {
     try {
       const file = req.file || null;
-
       let input = req.body;
 
       if (file) {
@@ -114,7 +113,10 @@ const EventController = {
 
       //   const { title, date, location, time, description } = req.body;
       const file = req.file || null;
-      //TODO validation empty body;
+
+      if (file && !(await UploadController.unlinkUrl(ev.image)))
+        throw new Error("File not replaced");
+
       let updatedata = req.body;
 
       let imageUrl;

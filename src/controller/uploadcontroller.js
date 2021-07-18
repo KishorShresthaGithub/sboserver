@@ -162,6 +162,8 @@ const UploadController = {
   async unlinkUrl(url) {
     let image = new URL(url);
 
+    if (image.pathname === "/public/placeholder_logo.svg") return true;
+
     let imagepath = image.pathname.split("/").filter(Boolean);
     imagepath = [__dirname, "../", ...imagepath];
 
