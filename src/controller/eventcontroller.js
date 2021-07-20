@@ -48,14 +48,12 @@ const EventController = {
 
       if (limit) options.limit = parseInt(limit);
 
-      const events = await Event.findAll(
-        {
-          where: {
-            start_date: { [Op.gte]: new Date() },
-          },
+      const events = await Event.findAll({
+        where: {
+          start_date: { [Op.gte]: new Date() },
         },
-        options
-      );
+        ...options,
+      });
 
       return BaseController.sendResponse(res, events, "Events listing");
     } catch (error) {
