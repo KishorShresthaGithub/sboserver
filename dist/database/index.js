@@ -1,7 +1,7 @@
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+  value: true,
 });
 exports["default"] = void 0;
 
@@ -13,7 +13,7 @@ var password = process.env.DB_PASSWORD;
 var sqlize = new _sequelize.Sequelize(database, username, password, {
   dialect: "mysql",
   host: "localhost",
-  logging: false
+  logging: false,
 });
 var _default = sqlize;
 exports["default"] = _default;

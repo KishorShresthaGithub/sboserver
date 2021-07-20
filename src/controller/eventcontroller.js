@@ -2,6 +2,7 @@ import BaseController from "./basecontroller";
 import UploadController from "./uploadcontroller";
 import Event from "./../models/event";
 import url from "./../helpers/url";
+import { Op } from "sequelize";
 
 const EventController = {
   /**
@@ -22,6 +23,39 @@ const EventController = {
 
       if (limit) options.limit = parseInt(limit);
       const events = await Event.findAll(options);
+
+      return BaseController.sendResponse(res, events, "Events listing");
+    } catch (error) {
+      console.log(error);
+      return BaseController.sendError(res, error);
+    }
+  },
+  /**
+   * Method to list all events
+   * can pass limit query to limit the number of events
+   *
+   * @param {Request} req
+   * @param {Response} res
+   * @returns
+   */
+  async upcoming(req, res) {
+    try {
+      const { limit } = req.query;
+
+      let options = {
+        order: [["start_date", "ASC"]],
+      };
+
+      if (limit) options.limit = parseInt(limit);
+
+      const events = await Event.findAll(
+        {
+          where: {
+            start_date: { [Op.gte]: new Date() },
+          },
+        },
+        options
+      );
 
       return BaseController.sendResponse(res, events, "Events listing");
     } catch (error) {
