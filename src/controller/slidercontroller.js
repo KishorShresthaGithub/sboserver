@@ -111,7 +111,7 @@ const SliderController = {
       const file = req.file || null;
 
       if (file && !(await UploadController.unlinkUrl(ev.image)))
-        throw new Error("File has not been deleted");
+        console.log("File has not been deleted");
 
       let updatedata = req.body;
 

@@ -115,7 +115,7 @@ const EventController = {
       const file = req.file || null;
 
       if (file && !(await UploadController.unlinkUrl(ev.image)))
-        throw new Error("File not replaced");
+        console.log("File not replaced");
 
       let updatedata = req.body;
 
