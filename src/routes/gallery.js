@@ -24,7 +24,6 @@ router.post(
 router.put(
   "/:gallery",
   authenticateToken,
-  imageUpload.single("image"),
   updateValidation,
   validationMid,
   GalleryController.update
