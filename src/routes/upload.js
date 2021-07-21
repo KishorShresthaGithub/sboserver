@@ -8,7 +8,7 @@ router.post("/", imageUpload.single("image"), GalleryController.uploadImage);
 
 router.post(
   "/multiple",
-  imageUpload.array("images"),
+  imageUpload.array("images", 5),
   GalleryController.uploadImages
 );
 

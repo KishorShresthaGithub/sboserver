@@ -16,7 +16,7 @@ router.get("/:gallery", GalleryController.show);
 router.post(
   "/",
   authenticateToken,
-  imageUpload.array("images"),
+  imageUpload.array("images", 5),
   createValidation,
   validationMid,
   GalleryController.save
