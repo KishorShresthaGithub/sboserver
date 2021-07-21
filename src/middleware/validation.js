@@ -14,3 +14,11 @@ export const validationMid = (req, res, next) => {
   }
   next();
 };
+
+export const fileValidation = (req, res, next) => {
+  if (req.file || req.files) {
+    next();
+  }
+
+  return BaseController.sendError(res, {}, "No image uploaded", 400);
+};

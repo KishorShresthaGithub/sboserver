@@ -2,6 +2,7 @@ import cryptoRandomString from "crypto-random-string";
 import { Model, DataTypes } from "sequelize";
 import slugify from "slugify";
 import sqlize from "../database";
+import url from "../helpers/url";
 
 class News extends Model {}
 
@@ -9,7 +10,11 @@ News.init(
   {
     title: { type: DataTypes.STRING, allowNull: false },
     slug: { type: DataTypes.STRING, allowNull: false, unique: false },
-    image: { type: DataTypes.STRING, allowNull: false },
+    image: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      defaultValue: `${url}/public/placeholder_logo.svg`,
+    },
     description: { type: DataTypes.STRING, allowNull: false },
   },
   {
@@ -37,6 +42,6 @@ const addSlug = (news, options) => {
 News.beforeCreate(addSlug);
 News.beforeUpdate(addSlug);
 
-// News.sync({ force: true });
+//News.sync({ force: true });
 
 export default News;
