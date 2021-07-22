@@ -180,7 +180,6 @@ const SummaryReportController = {
    */
   async destroy(req, res) {
     try {
-      //TODO move to validation middleware
       const { id } = req.params;
 
       const ev = await SummaryReport.findOne({
@@ -206,6 +205,41 @@ const SummaryReportController = {
         ev.toJSON(),
         "Item Successfully deleted"
       );
+    } catch (error) {
+      console.log(error);
+      return BaseController.sendError(res, error);
+    }
+  },
+
+  async download(req, res) {
+    try {
+      const { id } = req.params;
+      const ev = await SummaryReport.findOne({
+        where: {
+          id,
+        },
+      });
+
+      if (!ev)
+        return BaseController.sendError(
+          res,
+          {},
+          "SummaryReport not found",
+          404
+        );
+
+      let image = new URL(url);
+      let imagepath = image.pathname.split("/").filter(Boolean);
+      imagepath = [__dirname, "../", ...imagepath];
+
+      let filepath = imagepath.reduce((a, i) => path.join(a, i));
+
+      if (!fs.existsSync(file)) {
+        console.log("File not found");
+        return BaseController.sendError(res, {}, "File not found", 500);
+      }
+
+      return res.download(filepath);
     } catch (error) {
       console.log(error);
       return BaseController.sendError(res, error);

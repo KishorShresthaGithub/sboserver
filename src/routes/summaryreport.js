@@ -12,6 +12,7 @@ const router = Router();
 
 router.get("/", SummaryReportController.summaryReport);
 router.get("/all", SummaryReportController.index);
+router.get("/:id/download", SummaryReportController.download);
 router.get("/:slug", SummaryReportController.show);
 
 router.post(
