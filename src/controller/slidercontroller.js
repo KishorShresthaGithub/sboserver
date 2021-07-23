@@ -1,6 +1,6 @@
 import BaseController from "./basecontroller";
 import UploadController from "./uploadcontroller";
-import Slider from "../models/Slider";
+import Slider from "../models/slider";
 import url from "../helpers/url";
 import { Op } from "sequelize";
 

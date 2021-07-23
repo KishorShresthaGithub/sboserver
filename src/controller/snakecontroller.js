@@ -1,9 +1,9 @@
 import BaseController from "./basecontroller";
 import UploadController from "./uploadcontroller";
-import Snaker from "../models/Snake";
+
 import url from "../helpers/url";
 import { Op } from "sequelize";
-import Snake from "../models/Snake";
+import Snake from "../models/snake";
 
 const SnakeController = {
   /**

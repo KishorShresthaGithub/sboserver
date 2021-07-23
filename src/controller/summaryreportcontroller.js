@@ -1,6 +1,6 @@
 import BaseController from "./basecontroller";
 import UploadController from "./uploadcontroller";
-import SummaryReport from "./../models/SummaryReport";
+import SummaryReport from "./../models/summaryreport";
 import url from "./../helpers/url";
 
 const SummaryReportController = {

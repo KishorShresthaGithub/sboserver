@@ -1,6 +1,6 @@
 import BaseController from "./basecontroller";
 import UploadController from "./uploadcontroller";
-import News from "../models/News";
+import News from "../models/news";
 import url from "../helpers/url";
 
 const NewsController = {
