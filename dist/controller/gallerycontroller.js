@@ -118,7 +118,7 @@ var GalleryController = {
             case 3:
               _context3.next = 5;
               return _gallery["default"].create(req.body, {
-                skip: "gallery"
+                skip: "slug"
               });
 
             case 5:
@@ -241,7 +241,7 @@ var GalleryController = {
               _context5.next = 3;
               return _gallery["default"].findOne({
                 where: {
-                  id: gallery
+                  id: req.params.gallery
                 }
               });
 
@@ -473,28 +473,36 @@ var GalleryController = {
               return _context8.abrupt("return", _basecontroller["default"].sendError(res, {}, "Gallery not found", 404));
 
             case 6:
-              if (galleryImage.destroy()) {
+              if (_uploadcontroller["default"].unlinkUrl(galleryImage.image)) {
                 _context8.next = 8;
+                break;
+              }
+
+              throw Error("File not deleted");
+
+            case 8:
+              if (galleryImage.destroy()) {
+                _context8.next = 10;
                 break;
               }
 
               throw new Error("Something went wrong when deleting");
 
-            case 8:
+            case 10:
               return _context8.abrupt("return", _basecontroller["default"].sendResponse(res, galleryImage, "image deleted"));
 
-            case 11:
-              _context8.prev = 11;
+            case 13:
+              _context8.prev = 13;
               _context8.t0 = _context8["catch"](0);
               console.log(_context8.t0);
               return _context8.abrupt("return", _basecontroller["default"].sendError(res, _context8.t0));
 
-            case 15:
+            case 17:
             case "end":
               return _context8.stop();
           }
         }
-      }, _callee8, null, [[0, 11]]);
+      }, _callee8, null, [[0, 13]]);
     }))();
   }
 };

@@ -58,6 +58,9 @@ Link.init({
   parent_link: {
     type: _sequelize.DataTypes.INTEGER
   },
+  position: {
+    type: _sequelize.DataTypes.INTEGER
+  },
   page: {
     type: _sequelize.DataTypes.TEXT,
     allowNull: true,
@@ -78,7 +81,7 @@ var slugTitle = function slugTitle(model, options) {
 };
 
 Link.beforeCreate(slugTitle);
-Link.beforeUpdate(slugTitle); // Link.sync({ force: true });
+Link.beforeUpdate(slugTitle); // Link.sync({ alter: true });
 
 var _default = Link;
 exports["default"] = _default;

@@ -22,9 +22,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 var router = (0, _express.Router)();
 router.get("/", _SummaryReportcontroller["default"].summaryReport);
 router.get("/all", _SummaryReportcontroller["default"].index);
+router.get("/:id/download", _SummaryReportcontroller["default"].download);
 router.get("/:slug", _SummaryReportcontroller["default"].show);
 router.post("/", _authenticate_token["default"], _upload.pdfUpload.single("pdf_link"), _summaryreport.createValidation, _validation.validationMid, _SummaryReportcontroller["default"].save);
-router.put("/:slug", _authenticate_token["default"], _upload.pdfUpload.single("pdf_link"), _summaryreport.updateValidation, _validation.validationMid, _SummaryReportcontroller["default"].update);
-router["delete"]("/:slug", _authenticate_token["default"], _SummaryReportcontroller["default"].destroy);
+router.put("/:id", _authenticate_token["default"], _upload.pdfUpload.single("pdf_link"), _summaryreport.updateValidation, _validation.validationMid, _SummaryReportcontroller["default"].update);
+router["delete"]("/:id", _authenticate_token["default"], _SummaryReportcontroller["default"].destroy);
 var _default = router;
 exports["default"] = _default;

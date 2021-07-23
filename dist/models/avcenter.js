@@ -61,8 +61,7 @@ AVCenter.init({
     type: _sequelize.DataTypes.STRING
   },
   map_location: {
-    type: _sequelize.DataTypes.TEXT,
-    allowNull: false
+    type: _sequelize.DataTypes.TEXT
   },
   district: {
     type: _sequelize.DataTypes.STRING,
@@ -89,7 +88,7 @@ var addSlug = function addSlug(avc, options) {
 };
 
 AVCenter.beforeCreate(addSlug);
-AVCenter.beforeUpdate(addSlug); // AVCenter.sync({ force: true });
+AVCenter.beforeUpdate(addSlug); //AVCenter.sync({ force: true });
 
 var _default = AVCenter;
 exports["default"] = _default;

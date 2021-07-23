@@ -7,6 +7,8 @@ exports["default"] = authenticateToken;
 
 var _jsonwebtoken = _interopRequireDefault(require("jsonwebtoken"));
 
+var _basecontroller = _interopRequireDefault(require("../controller/basecontroller"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 /**
@@ -20,13 +22,14 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
  */
 function authenticateToken(req, res, next) {
   var authHeader = req.headers["authorization"];
-  var token = authHeader && authHeader.split(" ")[1];
-  if (token === null) return res.sendStatus(401);
+  if (!authHeader) return _basecontroller["default"].sendError(res, {}, "No token provided", 401);
+  var token = authHeader.split(" ")[1];
+  if (token === null) return _basecontroller["default"].sendError(res, {}, "Not logged in", 401);
 
   _jsonwebtoken["default"].verify(token, process.env.JWT_TOKEN_SECRET, function (err, payload) {
     if (err) {
       console.log(err);
-      return res.sendStatus(403);
+      return _basecontroller["default"].sendError(res, {}, "Invalid token", 403);
     }
 
     req.user = payload;

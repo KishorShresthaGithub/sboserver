@@ -15,6 +15,8 @@ var _slugify = _interopRequireDefault(require("slugify"));
 
 var _database = _interopRequireDefault(require("../database"));
 
+var _url = _interopRequireDefault(require("../helpers/url"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -59,7 +61,8 @@ News.init({
   },
   image: {
     type: _sequelize.DataTypes.STRING,
-    allowNull: false
+    allowNull: false,
+    defaultValue: "".concat(_url["default"], "/public/placeholder_logo.svg")
   },
   description: {
     type: _sequelize.DataTypes.STRING,
@@ -86,7 +89,7 @@ var addSlug = function addSlug(news, options) {
 };
 
 News.beforeCreate(addSlug);
-News.beforeUpdate(addSlug); // News.sync({ force: true });
+News.beforeUpdate(addSlug); //News.sync({ force: true });
 
 var _default = News;
 exports["default"] = _default;

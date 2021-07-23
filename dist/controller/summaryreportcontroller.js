@@ -15,6 +15,18 @@ var _url = _interopRequireDefault(require("./../helpers/url"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -117,17 +129,17 @@ var SummaryReportController = {
    */
   show: function show(req, res) {
     return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
-      var slug, ev;
+      var id, ev;
       return regeneratorRuntime.wrap(function _callee3$(_context3) {
         while (1) {
           switch (_context3.prev = _context3.next) {
             case 0:
               _context3.prev = 0;
-              slug = req.params.slug;
+              id = req.params.id;
               _context3.next = 4;
               return _SummaryReport["default"].findOne({
                 where: {
-                  id: slug
+                  id: id
                 }
               });
 
@@ -168,22 +180,23 @@ var SummaryReportController = {
    */
   save: function save(req, res) {
     return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
-      var file, input, ref, ev;
+      var _file, input, ref, ev;
+
       return regeneratorRuntime.wrap(function _callee4$(_context4) {
         while (1) {
           switch (_context4.prev = _context4.next) {
             case 0:
               _context4.prev = 0;
-              file = req.file || null;
+              _file = req.file || null;
               input = req.body;
 
-              if (!file) {
+              if (!_file) {
                 _context4.next = 8;
                 break;
               }
 
               _context4.next = 6;
-              return _uploadcontroller["default"].uploadPDF(file);
+              return _uploadcontroller["default"].uploadPDF(_file);
 
             case 6:
               ref = _context4.sent;
@@ -232,18 +245,19 @@ var SummaryReportController = {
    */
   update: function update(req, res) {
     return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
-      var slug, ev, file, updatedata, ref, updateConfirm;
+      var id, ev, _file2, updatedata, ref, updateConfirm;
+
       return regeneratorRuntime.wrap(function _callee5$(_context5) {
         while (1) {
           switch (_context5.prev = _context5.next) {
             case 0:
               _context5.prev = 0;
               //TODO move to validation middleware
-              slug = req.params.slug;
+              id = req.params.id;
               _context5.next = 4;
               return _SummaryReport["default"].findOne({
                 where: {
-                  id: slug
+                  id: id
                 }
               });
 
@@ -259,17 +273,17 @@ var SummaryReportController = {
 
             case 7:
               //   const { title, date, location, time, description } = req.body;
-              file = req.file || null; //TODO validation empty body;
+              _file2 = req.file || null; //TODO validation empty body;
 
               updatedata = req.body;
 
-              if (!file) {
+              if (!_file2) {
                 _context5.next = 14;
                 break;
               }
 
               _context5.next = 12;
-              return _uploadcontroller["default"].uploadPDF(file);
+              return _uploadcontroller["default"].uploadPDF(_file2);
 
             case 12:
               ref = _context5.sent;
@@ -317,18 +331,17 @@ var SummaryReportController = {
    */
   destroy: function destroy(req, res) {
     return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
-      var slug, ev, deleteData;
+      var id, ev, deleteData;
       return regeneratorRuntime.wrap(function _callee6$(_context6) {
         while (1) {
           switch (_context6.prev = _context6.next) {
             case 0:
               _context6.prev = 0;
-              //TODO move to validation middleware
-              slug = req.params.slug;
+              id = req.params.id;
               _context6.next = 4;
               return _SummaryReport["default"].findOne({
                 where: {
-                  id: slug
+                  id: id
                 }
               });
 
@@ -371,6 +384,65 @@ var SummaryReportController = {
           }
         }
       }, _callee6, null, [[0, 15]]);
+    }))();
+  },
+  download: function download(req, res) {
+    return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7() {
+      var id, ev, image, imagepath, filepath;
+      return regeneratorRuntime.wrap(function _callee7$(_context7) {
+        while (1) {
+          switch (_context7.prev = _context7.next) {
+            case 0:
+              _context7.prev = 0;
+              id = req.params.id;
+              _context7.next = 4;
+              return _SummaryReport["default"].findOne({
+                where: {
+                  id: id
+                }
+              });
+
+            case 4:
+              ev = _context7.sent;
+
+              if (ev) {
+                _context7.next = 7;
+                break;
+              }
+
+              return _context7.abrupt("return", _basecontroller["default"].sendError(res, {}, "SummaryReport not found", 404));
+
+            case 7:
+              image = new URL(_url["default"]);
+              imagepath = image.pathname.split("/").filter(Boolean);
+              imagepath = [__dirname, "../"].concat(_toConsumableArray(imagepath));
+              filepath = imagepath.reduce(function (a, i) {
+                return path.join(a, i);
+              });
+
+              if (fs.existsSync(file)) {
+                _context7.next = 14;
+                break;
+              }
+
+              console.log("File not found");
+              return _context7.abrupt("return", _basecontroller["default"].sendError(res, {}, "File not found", 500));
+
+            case 14:
+              return _context7.abrupt("return", res.download(filepath));
+
+            case 17:
+              _context7.prev = 17;
+              _context7.t0 = _context7["catch"](0);
+              console.log(_context7.t0);
+              return _context7.abrupt("return", _basecontroller["default"].sendError(res, _context7.t0));
+
+            case 21:
+            case "end":
+              return _context7.stop();
+          }
+        }
+      }, _callee7, null, [[0, 17]]);
     }))();
   }
 };

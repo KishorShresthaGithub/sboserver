@@ -81,20 +81,19 @@ var AVCcontroller = {
 
             case 3:
               districts = _context2.sent;
-              console.log(districts);
               return _context2.abrupt("return", _basecontroller["default"].sendResponse(res, districts, "District listing"));
 
-            case 8:
-              _context2.prev = 8;
+            case 7:
+              _context2.prev = 7;
               _context2.t0 = _context2["catch"](0);
               return _context2.abrupt("return", _basecontroller["default"].sendError(res, _context2.t0));
 
-            case 11:
+            case 10:
             case "end":
               return _context2.stop();
           }
         }
-      }, _callee2, null, [[0, 8]]);
+      }, _callee2, null, [[0, 7]]);
     }))();
   },
 
@@ -122,20 +121,19 @@ var AVCcontroller = {
 
             case 3:
               avc = _context3.sent;
-              console.log("disctricts");
               return _context3.abrupt("return", _basecontroller["default"].sendResponse(res, avc, "District listing"));
 
-            case 8:
-              _context3.prev = 8;
+            case 7:
+              _context3.prev = 7;
               _context3.t0 = _context3["catch"](0);
               return _context3.abrupt("return", _basecontroller["default"].sendError(res, _context3.t0));
 
-            case 11:
+            case 10:
             case "end":
               return _context3.stop();
           }
         }
-      }, _callee3, null, [[0, 8]]);
+      }, _callee3, null, [[0, 7]]);
     }))();
   },
 
@@ -248,18 +246,18 @@ var AVCcontroller = {
    */
   update: function update(req, res) {
     return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
-      var slug, ev, updateConfirm;
+      var id, ev, updateConfirm;
       return regeneratorRuntime.wrap(function _callee6$(_context6) {
         while (1) {
           switch (_context6.prev = _context6.next) {
             case 0:
               _context6.prev = 0;
               //TODO move to validation middleware
-              slug = req.params.slug;
+              id = req.params.id;
               _context6.next = 4;
               return _avcenter["default"].findOne({
                 where: {
-                  slug: slug
+                  id: id
                 }
               });
 
@@ -313,18 +311,18 @@ var AVCcontroller = {
    */
   destroy: function destroy(req, res) {
     return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7() {
-      var slug, ev, deleteData;
+      var id, ev, deleteData;
       return regeneratorRuntime.wrap(function _callee7$(_context7) {
         while (1) {
           switch (_context7.prev = _context7.next) {
             case 0:
               _context7.prev = 0;
               //TODO move to validation middleware
-              slug = req.params.slug;
+              id = req.params.id;
               _context7.next = 4;
               return _avcenter["default"].findOne({
                 where: {
-                  slug: slug
+                  id: id
                 }
               });
 

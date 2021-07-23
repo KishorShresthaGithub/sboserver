@@ -22,8 +22,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 var router = (0, _express.Router)();
 router.get("/", _gallerycontroller["default"].index);
 router.get("/:gallery", _gallerycontroller["default"].show);
-router.post("/", _authenticate_token["default"], _upload.imageUpload.array("images"), _gallery.createValidation, _validation.validationMid, _gallerycontroller["default"].save);
-router.put("/:gallery", _authenticate_token["default"], _upload.imageUpload.single("image"), _gallery.updateValidation, _validation.validationMid, _gallerycontroller["default"].update);
+router.post("/", _authenticate_token["default"], _upload.imageUpload.array("images", 5), _gallery.createValidation, _validation.validationMid, _gallerycontroller["default"].save);
+router.put("/:gallery", _authenticate_token["default"], _gallery.updateValidation, _validation.validationMid, _gallerycontroller["default"].update);
 router["delete"]("/:gallery", _authenticate_token["default"], _gallerycontroller["default"].destroy);
 router.post("/:gallery/galleryImage", _authenticate_token["default"], _upload.imageUpload.single("image"), _gallerycontroller["default"].addSingle);
 router.put("/:gallery/galleryImage/:gallery_id", _authenticate_token["default"], _upload.imageUpload.single("image"), _gallerycontroller["default"].updateSingle);

@@ -17,6 +17,18 @@ var _url = _interopRequireDefault(require("./../helpers/url"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
@@ -105,7 +117,7 @@ var UploadController = {
                             break;
                           }
 
-                          console.log(err);
+                          UploadController.unlinkFile(file.path);
                           return _context2.abrupt("return");
 
                         case 3:
@@ -113,18 +125,19 @@ var UploadController = {
                           return (0, _sharp["default"])(data).webp({
                             quality: 20
                           }).toFile(_path["default"].resolve(destination, ref))["catch"](function (err) {
-                            console.log(err);
+                            _fs["default"].unlink(file.path, function (err) {
+                              if (err) {
+                                console.log(err);
+                                return;
+                              }
+
+                              console.log("Uploaded: File compressed and original file deleted");
+                            });
                           });
 
                         case 5:
-                          _fs["default"].unlink(file.path, function (err) {
-                            if (err) {
-                              console.log(err);
-                              return;
-                            }
-
-                            console.log("Uploaded: File compressed and original file deleted");
-                          });
+                          //unlink original file
+                          UploadController.unlinkFile(file.path);
 
                         case 6:
                         case "end":
@@ -251,6 +264,91 @@ var UploadController = {
           }
         }
       }, _callee5, null, [[0, 9]]);
+    }))();
+  },
+
+  /**
+   * Unlink file
+   *
+   * @param {*} file
+   * @returns
+   */
+  unlinkFile: function unlinkFile(file) {
+    return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
+      return regeneratorRuntime.wrap(function _callee6$(_context6) {
+        while (1) {
+          switch (_context6.prev = _context6.next) {
+            case 0:
+              if (_fs["default"].existsSync(file)) {
+                _context6.next = 3;
+                break;
+              }
+
+              console.log("File not found");
+              return _context6.abrupt("return");
+
+            case 3:
+              _fs["default"].unlink(file, function (err) {
+                if (err) {
+                  console.log(err, " Something went wrong");
+                  return;
+                }
+
+                console.log("File has been deleted");
+                return "File deleted";
+              });
+
+              return _context6.abrupt("return", true);
+
+            case 5:
+            case "end":
+              return _context6.stop();
+          }
+        }
+      }, _callee6);
+    }))();
+  },
+
+  /**
+   * Method to delete files from file url
+   *
+   * @param {Url of model} url
+   * @returns
+   */
+  unlinkUrl: function unlinkUrl(url) {
+    return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7() {
+      var image, imagepath, filepath;
+      return regeneratorRuntime.wrap(function _callee7$(_context7) {
+        while (1) {
+          switch (_context7.prev = _context7.next) {
+            case 0:
+              image = new URL(url);
+
+              if (!(image.pathname === "/public/placeholder_logo.svg")) {
+                _context7.next = 3;
+                break;
+              }
+
+              return _context7.abrupt("return", true);
+
+            case 3:
+              imagepath = image.pathname.split("/").filter(Boolean);
+              imagepath = [__dirname, "../"].concat(_toConsumableArray(imagepath));
+              filepath = imagepath.reduce(function (a, i) {
+                return _path["default"].join(a, i);
+              });
+              _context7.next = 8;
+              return UploadController.unlinkFile(filepath)["catch"](console.log);
+
+            case 8:
+              return _context7.abrupt("return", _context7.sent);
+
+            case 9:
+            case "end":
+              return _context7.stop();
+          }
+        }
+      }, _callee7);
     }))();
   }
 };

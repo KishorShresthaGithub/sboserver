@@ -56,14 +56,16 @@ var LinkController = {
                       case 0:
                         _context.next = 2;
                         return _link["default"].findAll({
+                          order: [["parent_link", "ASC"]],
                           raw: true
                         });
 
                       case 2:
                         dblinks = _context.sent;
                         links = _toConsumableArray(dblinks);
-                        links.forEach(function (e) {
-                          if (!e.parent_link) e.sub_links = [];
+                        links = links.map(function (e) {
+                          e.sub_links = [];
+                          return e;
                         });
                         temp = [];
 
@@ -72,6 +74,7 @@ var LinkController = {
                             var parent = links.find(function (res) {
                               return res.id === links[i].parent_link;
                             });
+                            links[i].link = "".concat(parent.link, "/").concat(links[i].link);
                             parent.sub_links.push(links[i]);
                           }
                         };
@@ -80,11 +83,14 @@ var LinkController = {
                           _loop(i);
                         }
 
+                        temp = temp.sort(function (a, b) {
+                          return parseInt(a.position) - parseInt(b.position);
+                        });
                         return _context.abrupt("return", {
                           v: _basecontroller["default"].sendResponse(res, temp, "Navigation")
                         });
 
-                      case 9:
+                      case 10:
                       case "end":
                         return _context.stop();
                     }
@@ -120,100 +126,94 @@ var LinkController = {
       }, _callee2, null, [[0, 7]]);
     }))();
   },
-  show: function show(req, res) {
-    return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
-      var dblink, link;
-      return regeneratorRuntime.wrap(function _callee3$(_context3) {
-        while (1) {
-          switch (_context3.prev = _context3.next) {
-            case 0:
-              _context3.prev = 0;
-              _context3.next = 3;
-              return _link["default"].findOne({
-                where: {
-                  id: req.params.id
-                },
-                raw: true
-              });
-
-            case 3:
-              dblink = _context3.sent;
-              link = _objectSpread({}, dblink);
-
-              if (!link.parent_link) {
-                _context3.next = 10;
-                break;
-              }
-
-              _context3.next = 8;
-              return _link["default"].findOne({
-                where: {
-                  id: link.parent_link
-                },
-                raw: true
-              });
-
-            case 8:
-              link.parent = _context3.sent;
-              delete link.parent_link;
-
-            case 10:
-              return _context3.abrupt("return", _basecontroller["default"].sendResponse(res, link, "Single link listing"));
-
-            case 13:
-              _context3.prev = 13;
-              _context3.t0 = _context3["catch"](0);
-              console.log(_context3.t0);
-              return _context3.abrupt("return", _basecontroller["default"].sendError(res, _context3.t0));
-
-            case 17:
-            case "end":
-              return _context3.stop();
-          }
-        }
-      }, _callee3, null, [[0, 13]]);
-    }))();
-  },
-  save: function save(req, res) {
+  all: function all(req, res) {
     return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
-      var link;
+      var _ret2;
+
       return regeneratorRuntime.wrap(function _callee4$(_context4) {
         while (1) {
           switch (_context4.prev = _context4.next) {
             case 0:
               _context4.prev = 0;
-              _context4.next = 3;
-              return _link["default"].create(req.body);
+              return _context4.delegateYield( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
+                var dblinks, links, temp, _loop2, i;
 
-            case 3:
-              link = _context4.sent;
+                return regeneratorRuntime.wrap(function _callee3$(_context3) {
+                  while (1) {
+                    switch (_context3.prev = _context3.next) {
+                      case 0:
+                        _context3.next = 2;
+                        return _link["default"].findAll({
+                          order: [["parent_link", "ASC"]],
+                          raw: true
+                        });
 
-              if (link) {
-                _context4.next = 6;
+                      case 2:
+                        dblinks = _context3.sent;
+                        links = _toConsumableArray(dblinks);
+                        temp = [];
+
+                        _loop2 = function _loop2(i) {
+                          if (links[i].parent_link !== null) {
+                            var parent = links.find(function (res) {
+                              return res.id === links[i].parent_link;
+                            });
+                            links[i].link = "".concat(parent.link, "/").concat(links[i].link);
+                          }
+
+                          temp.push(links[i]);
+                        };
+
+                        for (i = 0; i < links.length; i++) {
+                          _loop2(i);
+                        }
+
+                        temp = temp.sort(function (a, b) {
+                          return parseInt(a.position) - parseInt(b.position);
+                        });
+                        return _context3.abrupt("return", {
+                          v: _basecontroller["default"].sendResponse(res, temp, "Navigation")
+                        });
+
+                      case 9:
+                      case "end":
+                        return _context3.stop();
+                    }
+                  }
+                }, _callee3);
+              })(), "t0", 2);
+
+            case 2:
+              _ret2 = _context4.t0;
+
+              if (!(_typeof(_ret2) === "object")) {
+                _context4.next = 5;
                 break;
               }
 
-              throw Error("Somthing went wrong");
+              return _context4.abrupt("return", _ret2.v);
 
-            case 6:
-              return _context4.abrupt("return", _basecontroller["default"].sendResponse(res, link.toJSON(), "Link saved"));
+            case 5:
+              _context4.next = 11;
+              break;
 
-            case 9:
-              _context4.prev = 9;
-              _context4.t0 = _context4["catch"](0);
-              return _context4.abrupt("return", _basecontroller["default"].sendError(res, _context4.t0));
+            case 7:
+              _context4.prev = 7;
+              _context4.t1 = _context4["catch"](0);
+              console.log(_context4.t1);
+              return _context4.abrupt("return", _basecontroller["default"].sendError(res, _context4.t1));
 
-            case 12:
+            case 11:
             case "end":
               return _context4.stop();
           }
         }
-      }, _callee4, null, [[0, 9]]);
+      }, _callee4, null, [[0, 7]]);
     }))();
   },
-  update: function update(req, res) {
+  show: function show(req, res) {
     return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
-      var link, update;
+      var dblink, link;
       return regeneratorRuntime.wrap(function _callee5$(_context5) {
         while (1) {
           switch (_context5.prev = _context5.next) {
@@ -221,68 +221,69 @@ var LinkController = {
               _context5.prev = 0;
               _context5.next = 3;
               return _link["default"].findOne({
-                where: _defineProperty({
+                where: {
                   id: req.params.id
-                }, _sequelize.Op.not, {
-                  parent_link: null
-                })
+                },
+                raw: true
               });
 
             case 3:
-              link = _context5.sent;
+              dblink = _context5.sent;
 
-              if (link) {
+              if (dblink) {
                 _context5.next = 6;
                 break;
               }
 
-              return _context5.abrupt("return", _basecontroller["default"].sendError(res, {}, 404));
+              return _context5.abrupt("return", _basecontroller["default"].sendError(res, null, "Link not found", 404));
 
             case 6:
-              _context5.next = 8;
-              return link.update(req.body);
+              link = _objectSpread({}, dblink);
 
-            case 8:
-              update = _context5.sent;
-
-              if (update) {
-                _context5.next = 11;
+              if (!link.parent_link) {
+                _context5.next = 12;
                 break;
               }
 
-              throw new Error("Something went wrong");
+              _context5.next = 10;
+              return _link["default"].findOne({
+                where: {
+                  id: link.parent_link
+                },
+                raw: true
+              });
 
-            case 11:
-              return _context5.abrupt("return", _basecontroller["default"].sendResponse(res, link.toJSON(), "Link updated"));
+            case 10:
+              link.parent = _context5.sent;
+              delete link.parent_link;
 
-            case 14:
-              _context5.prev = 14;
+            case 12:
+              return _context5.abrupt("return", _basecontroller["default"].sendResponse(res, link, "Single link listing"));
+
+            case 15:
+              _context5.prev = 15;
               _context5.t0 = _context5["catch"](0);
               console.log(_context5.t0);
               return _context5.abrupt("return", _basecontroller["default"].sendError(res, _context5.t0));
 
-            case 18:
+            case 19:
             case "end":
               return _context5.stop();
           }
         }
-      }, _callee5, null, [[0, 14]]);
+      }, _callee5, null, [[0, 15]]);
     }))();
   },
-  "delete": function _delete(req, res) {
+  save: function save(req, res) {
     return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
-      var link, sub_linksLinks, updateParent;
+      var link;
       return regeneratorRuntime.wrap(function _callee6$(_context6) {
         while (1) {
           switch (_context6.prev = _context6.next) {
             case 0:
               _context6.prev = 0;
               _context6.next = 3;
-              return _link["default"].findOne({
-                where: {
-                  id: req.params.id
-                }
-              })["catch"](console.log);
+              return _link["default"].create(req.body);
 
             case 3:
               link = _context6.sent;
@@ -292,10 +293,107 @@ var LinkController = {
                 break;
               }
 
-              return _context6.abrupt("return", _basecontroller["default"].sendError(res, {}, 404));
+              throw Error("Somthing went wrong");
 
             case 6:
-              _context6.next = 8;
+              return _context6.abrupt("return", _basecontroller["default"].sendResponse(res, link.toJSON(), "Link saved"));
+
+            case 9:
+              _context6.prev = 9;
+              _context6.t0 = _context6["catch"](0);
+              return _context6.abrupt("return", _basecontroller["default"].sendError(res, _context6.t0));
+
+            case 12:
+            case "end":
+              return _context6.stop();
+          }
+        }
+      }, _callee6, null, [[0, 9]]);
+    }))();
+  },
+  update: function update(req, res) {
+    return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7() {
+      var link, update;
+      return regeneratorRuntime.wrap(function _callee7$(_context7) {
+        while (1) {
+          switch (_context7.prev = _context7.next) {
+            case 0:
+              _context7.prev = 0;
+              _context7.next = 3;
+              return _link["default"].findOne({
+                where: {
+                  id: req.params.id
+                }
+              });
+
+            case 3:
+              link = _context7.sent;
+
+              if (link) {
+                _context7.next = 6;
+                break;
+              }
+
+              return _context7.abrupt("return", _basecontroller["default"].sendError(res, {}, 404));
+
+            case 6:
+              _context7.next = 8;
+              return link.update(req.body);
+
+            case 8:
+              update = _context7.sent;
+
+              if (update) {
+                _context7.next = 11;
+                break;
+              }
+
+              throw new Error("Something went wrong");
+
+            case 11:
+              return _context7.abrupt("return", _basecontroller["default"].sendResponse(res, link.toJSON(), "Link updated"));
+
+            case 14:
+              _context7.prev = 14;
+              _context7.t0 = _context7["catch"](0);
+              console.log(_context7.t0);
+              return _context7.abrupt("return", _basecontroller["default"].sendError(res, _context7.t0));
+
+            case 18:
+            case "end":
+              return _context7.stop();
+          }
+        }
+      }, _callee7, null, [[0, 14]]);
+    }))();
+  },
+  "delete": function _delete(req, res) {
+    return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8() {
+      var link, sub_linksLinks, updateParent;
+      return regeneratorRuntime.wrap(function _callee8$(_context8) {
+        while (1) {
+          switch (_context8.prev = _context8.next) {
+            case 0:
+              _context8.prev = 0;
+              _context8.next = 3;
+              return _link["default"].findOne({
+                where: {
+                  id: req.params.id
+                }
+              })["catch"](console.log);
+
+            case 3:
+              link = _context8.sent;
+
+              if (link) {
+                _context8.next = 6;
+                break;
+              }
+
+              return _context8.abrupt("return", _basecontroller["default"].sendError(res, {}, 404));
+
+            case 6:
+              _context8.next = 8;
               return _link["default"].findAll({
                 where: {
                   parent_link: link.id
@@ -303,41 +401,41 @@ var LinkController = {
               })["catch"](console.log);
 
             case 8:
-              sub_linksLinks = _context6.sent;
+              sub_linksLinks = _context8.sent;
               if (sub_linksLinks.length) updateParent = sub_linksLinks.map(function (res) {
                 return res.update({
                   parent_link: null
                 });
               });
-              _context6.next = 12;
+              _context8.next = 12;
               return Promise.all(updateParent)["catch"](console.log);
 
             case 12:
-              _context6.next = 14;
+              _context8.next = 14;
               return link.destroy();
 
             case 14:
-              if (_context6.sent) {
-                _context6.next = 16;
+              if (_context8.sent) {
+                _context8.next = 16;
                 break;
               }
 
               throw new Error("Something went wrong");
 
             case 16:
-              return _context6.abrupt("return", _basecontroller["default"].sendResponse(res, link.toJSON(), "Link deleted"));
+              return _context8.abrupt("return", _basecontroller["default"].sendResponse(res, link.toJSON(), "Link deleted"));
 
             case 19:
-              _context6.prev = 19;
-              _context6.t0 = _context6["catch"](0);
-              return _context6.abrupt("return", _basecontroller["default"].sendError(res, _context6.t0));
+              _context8.prev = 19;
+              _context8.t0 = _context8["catch"](0);
+              return _context8.abrupt("return", _basecontroller["default"].sendError(res, _context8.t0));
 
             case 22:
             case "end":
-              return _context6.stop();
+              return _context8.stop();
           }
         }
-      }, _callee6, null, [[0, 19]]);
+      }, _callee8, null, [[0, 19]]);
     }))();
   }
 };

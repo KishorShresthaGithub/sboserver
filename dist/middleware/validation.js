@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.validationMid = void 0;
+exports.fileValidation = exports.validationMid = void 0;
 
 var _expressValidator = require("express-validator");
 
@@ -24,3 +24,13 @@ var validationMid = function validationMid(req, res, next) {
 };
 
 exports.validationMid = validationMid;
+
+var fileValidation = function fileValidation(req, res, next) {
+  if (req.file || req.files) {
+    next();
+  }
+
+  return _basecontroller["default"].sendError(res, {}, "No image uploaded", 400);
+};
+
+exports.fileValidation = fileValidation;

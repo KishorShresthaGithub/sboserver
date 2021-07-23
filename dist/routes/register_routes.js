@@ -39,7 +39,15 @@ var _summaryreport = _interopRequireDefault(require("./summaryreport"));
 
 var _users = _interopRequireDefault(require("./users"));
 
+var _url = _interopRequireDefault(require("../helpers/url"));
+
+var _basecontroller = _interopRequireDefault(require("../controller/basecontroller"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 var router = (0, _express.Router)();
 router.get("/", function (req, res) {
@@ -58,7 +66,42 @@ router.use("/sliders", _slider["default"]);
 router.use("/snakes", _snakes["default"]);
 router.use("/gallery", _gallery["default"]);
 router.use("/summaryreport", _summaryreport["default"]);
-router.use("/upload_file", _upload.imageUpload.single("image"), _uploadcontroller["default"].uploadImage);
+router.post("/upload_file", _authenticate_token["default"], _upload.imageUpload.single("image"), _uploadcontroller["default"].uploadImage);
+router["delete"]("/unlink", /*#__PURE__*/function () {
+  var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(req, res) {
+    var unlink;
+    return regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            _context.next = 2;
+            return _uploadcontroller["default"].unlinkUrl(req.body.url);
+
+          case 2:
+            unlink = _context.sent;
+
+            if (unlink) {
+              _context.next = 5;
+              break;
+            }
+
+            return _context.abrupt("return", _basecontroller["default"].sendError(res, {}, "File not unlinked"));
+
+          case 5:
+            return _context.abrupt("return", _basecontroller["default"].sendResponse(res, {}, "File has been deleted"));
+
+          case 6:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function (_x, _x2) {
+    return _ref.apply(this, arguments);
+  };
+}());
 router.use("*", function (req, res) {
   res.send("No resource found").status(404);
 });

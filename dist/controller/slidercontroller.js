@@ -80,17 +80,17 @@ var SliderController = {
    */
   show: function show(req, res) {
     return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
-      var slug, ev;
+      var id, ev;
       return regeneratorRuntime.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
               _context2.prev = 0;
-              slug = req.params.slug;
+              id = req.params.id;
               _context2.next = 4;
               return _Slider["default"].findOne({
                 where: {
-                  id: slug
+                  id: id
                 }
               });
 
@@ -196,18 +196,18 @@ var SliderController = {
    */
   update: function update(req, res) {
     return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
-      var slug, ev, file, updatedata, imageUrl, ref, updateConfirm;
+      var id, ev, file, updatedata, imageUrl, ref, updateConfirm;
       return regeneratorRuntime.wrap(function _callee4$(_context4) {
         while (1) {
           switch (_context4.prev = _context4.next) {
             case 0:
               _context4.prev = 0;
               //TODO move to validation middleware
-              slug = req.params.slug;
+              id = req.params.id;
               _context4.next = 4;
               return _Slider["default"].findOne({
                 where: {
-                  id: slug
+                  id: id
                 }
               });
 
@@ -223,20 +223,41 @@ var SliderController = {
 
             case 7:
               //   const { title, date, location, time, description } = req.body;
-              file = req.file || null; //TODO validation empty body;
+              file = req.file || null;
+              _context4.t0 = file;
 
+              if (!_context4.t0) {
+                _context4.next = 13;
+                break;
+              }
+
+              _context4.next = 12;
+              return _uploadcontroller["default"].unlinkUrl(ev.image);
+
+            case 12:
+              _context4.t0 = !_context4.sent;
+
+            case 13:
+              if (!_context4.t0) {
+                _context4.next = 15;
+                break;
+              }
+
+              console.log("File has not been deleted");
+
+            case 15:
               updatedata = req.body;
 
               if (!file) {
-                _context4.next = 16;
+                _context4.next = 23;
                 break;
               }
 
               imageUrl = _url["default"];
-              _context4.next = 13;
+              _context4.next = 20;
               return _uploadcontroller["default"].compressImage(file);
 
-            case 13:
+            case 20:
               ref = _context4.sent;
               //image url
               imageUrl += "/public/images/".concat(ref);
@@ -244,35 +265,35 @@ var SliderController = {
                 image: imageUrl
               });
 
-            case 16:
-              _context4.next = 18;
+            case 23:
+              _context4.next = 25;
               return ev.update(updatedata);
 
-            case 18:
+            case 25:
               updateConfirm = _context4.sent;
 
               if (updateConfirm) {
-                _context4.next = 21;
+                _context4.next = 28;
                 break;
               }
 
               throw Error();
 
-            case 21:
+            case 28:
               return _context4.abrupt("return", _basecontroller["default"].sendResponse(res, ev.toJSON(), "Slider successfully added"));
 
-            case 24:
-              _context4.prev = 24;
-              _context4.t0 = _context4["catch"](0);
-              console.log(_context4.t0);
-              return _context4.abrupt("return", _basecontroller["default"].sendError(res, _context4.t0));
+            case 31:
+              _context4.prev = 31;
+              _context4.t1 = _context4["catch"](0);
+              console.log(_context4.t1);
+              return _context4.abrupt("return", _basecontroller["default"].sendError(res, _context4.t1));
 
-            case 28:
+            case 35:
             case "end":
               return _context4.stop();
           }
         }
-      }, _callee4, null, [[0, 24]]);
+      }, _callee4, null, [[0, 31]]);
     }))();
   },
 
@@ -284,18 +305,18 @@ var SliderController = {
    */
   destroy: function destroy(req, res) {
     return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
-      var slug, ev, deleteData;
+      var id, ev, deleteData;
       return regeneratorRuntime.wrap(function _callee5$(_context5) {
         while (1) {
           switch (_context5.prev = _context5.next) {
             case 0:
               _context5.prev = 0;
               //TODO move to validation middleware
-              slug = req.params.slug;
+              id = req.params.id;
               _context5.next = 4;
               return _Slider["default"].findOne({
                 where: {
-                  id: slug
+                  id: id
                 }
               });
 
@@ -311,33 +332,45 @@ var SliderController = {
 
             case 7:
               _context5.next = 9;
-              return ev.destroy();
+              return _uploadcontroller["default"].unlinkUrl(ev.image);
 
             case 9:
+              if (_context5.sent) {
+                _context5.next = 11;
+                break;
+              }
+
+              throw new Error("File not deleted");
+
+            case 11:
+              _context5.next = 13;
+              return ev.destroy();
+
+            case 13:
               deleteData = _context5.sent;
 
               if (deleteData) {
-                _context5.next = 12;
+                _context5.next = 16;
                 break;
               }
 
               throw Error("Something went wrong when deleteing item");
 
-            case 12:
+            case 16:
               return _context5.abrupt("return", _basecontroller["default"].sendResponse(res, ev.toJSON(), "Item Successfully deleted"));
 
-            case 15:
-              _context5.prev = 15;
+            case 19:
+              _context5.prev = 19;
               _context5.t0 = _context5["catch"](0);
               console.log(_context5.t0);
               return _context5.abrupt("return", _basecontroller["default"].sendError(res, _context5.t0));
 
-            case 19:
+            case 23:
             case "end":
               return _context5.stop();
           }
         }
-      }, _callee5, null, [[0, 15]]);
+      }, _callee5, null, [[0, 19]]);
     }))();
   }
 };

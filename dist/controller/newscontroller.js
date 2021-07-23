@@ -196,18 +196,18 @@ var NewsController = {
    */
   update: function update(req, res) {
     return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
-      var slug, ev, file, updatedata, imageUrl, ref, updateConfirm;
+      var id, ev, file, updatedata, imageUrl, ref, updateConfirm;
       return regeneratorRuntime.wrap(function _callee4$(_context4) {
         while (1) {
           switch (_context4.prev = _context4.next) {
             case 0:
               _context4.prev = 0;
               //TODO move to validation middleware
-              slug = req.params.slug;
+              id = req.params.id;
               _context4.next = 4;
               return _News["default"].findOne({
                 where: {
-                  slug: slug
+                  id: id
                 }
               });
 
@@ -284,18 +284,18 @@ var NewsController = {
    */
   destroy: function destroy(req, res) {
     return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
-      var slug, ev, deleteData;
+      var id, ev, deleteData;
       return regeneratorRuntime.wrap(function _callee5$(_context5) {
         while (1) {
           switch (_context5.prev = _context5.next) {
             case 0:
               _context5.prev = 0;
               //TODO move to validation middleware
-              slug = req.params.slug;
+              id = req.params.id;
               _context5.next = 4;
               return _News["default"].findOne({
                 where: {
-                  slug: slug
+                  id: id
                 }
               });
 

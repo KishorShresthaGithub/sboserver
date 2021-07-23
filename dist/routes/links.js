@@ -19,6 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 
 var router = (0, _express.Router)();
 router.get("/", _linkcontroller["default"].index);
+router.get("/all", _linkcontroller["default"].all);
 router.get("/:id", _linkcontroller["default"].show);
 router.post("/", _authenticate_token["default"], _link.createValidation, _validation.validationMid, _linkcontroller["default"].save);
 router.put("/:id", _authenticate_token["default"], _link.updateValidation, _validation.validationMid, _linkcontroller["default"].update);
