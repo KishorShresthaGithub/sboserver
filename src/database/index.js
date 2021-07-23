@@ -5,8 +5,8 @@ const username = process.env.DB_USERNAME;
 const password = process.env.DB_PASSWORD;
 
 const sqlize = new Sequelize(database, username, password, {
-  dialect: "mysql",
-  host: "localhost",
+  dialect: process.env.DB_DIALECT || "mysql",
+  host: process.env.DB_HOST || "localhost",
   logging: false,
 });
 

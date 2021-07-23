@@ -11,8 +11,8 @@ var database = process.env.DB_NAME;
 var username = process.env.DB_USERNAME;
 var password = process.env.DB_PASSWORD;
 var sqlize = new _sequelize.Sequelize(database, username, password, {
-  dialect: "mysql",
-  host: "localhost",
+  dialect: process.env.DB_DIALECT || "mysql",
+  host: process.env.DB_HOST || "localhost",
   logging: false
 });
 var _default = sqlize;

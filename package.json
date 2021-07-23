@@ -6,7 +6,7 @@
     "dev": "cross-env NODE_ENV=development kill-port 3000 && nodemon --exec npx babel-node --trace-warnings ./src/bin/www",
     "clean": "rimraf dist",
     "build-server": "npm run clean && babel ./src --out-dir dist --copy-files",
-    "start": "node ./dist/bin/www.js"
+    "start": "nodemon ./dist/bin/www.js"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
@@ -25,15 +25,17 @@
     "morgan": "~1.9.1",
     "multer": "^1.4.2",
     "mysql2": "^2.2.5",
+    "nodemon": "^2.0.9",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
+    "pg": "^8.6.0",
+    "pg-hstore": "^2.3.4",
     "pm2": "^5.1.0",
     "regenerator-runtime": "^0.13.7",
     "sequelize": "^6.6.4",
     "sharp": "^0.28.3",
-    "slugify": "^1.5.3",
-    "nodemon": "^2.0.9"
+    "slugify": "^1.5.3"
   },
   "devDependencies": {
     "@babel/cli": "^7.14.5",
