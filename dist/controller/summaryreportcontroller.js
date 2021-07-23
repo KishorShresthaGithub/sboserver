@@ -9,7 +9,7 @@ var _basecontroller = _interopRequireDefault(require("./basecontroller"));
 
 var _uploadcontroller = _interopRequireDefault(require("./uploadcontroller"));
 
-var _SummaryReport = _interopRequireDefault(require("./../models/SummaryReport"));
+var _summaryreport = _interopRequireDefault(require("./../models/summaryreport"));
 
 var _url = _interopRequireDefault(require("./../helpers/url"));
 
@@ -55,7 +55,7 @@ var SummaryReportController = {
             case 0:
               _context.prev = 0;
               _context.next = 3;
-              return _SummaryReport["default"].findAll({
+              return _summaryreport["default"].findAll({
                 order: [["created_at", "DESC"]]
               });
 
@@ -86,7 +86,7 @@ var SummaryReportController = {
             case 0:
               _context2.prev = 0;
               _context2.next = 3;
-              return _SummaryReport["default"].findOne({
+              return _summaryreport["default"].findOne({
                 where: {
                   show: true
                 }
@@ -137,7 +137,7 @@ var SummaryReportController = {
               _context3.prev = 0;
               id = req.params.id;
               _context3.next = 4;
-              return _SummaryReport["default"].findOne({
+              return _summaryreport["default"].findOne({
                 where: {
                   id: id
                 }
@@ -206,7 +206,7 @@ var SummaryReportController = {
 
             case 8:
               _context4.next = 10;
-              return _SummaryReport["default"].create(input);
+              return _summaryreport["default"].create(input);
 
             case 10:
               ev = _context4.sent;
@@ -255,7 +255,7 @@ var SummaryReportController = {
               //TODO move to validation middleware
               id = req.params.id;
               _context5.next = 4;
-              return _SummaryReport["default"].findOne({
+              return _summaryreport["default"].findOne({
                 where: {
                   id: id
                 }
@@ -339,7 +339,7 @@ var SummaryReportController = {
               _context6.prev = 0;
               id = req.params.id;
               _context6.next = 4;
-              return _SummaryReport["default"].findOne({
+              return _summaryreport["default"].findOne({
                 where: {
                   id: id
                 }
@@ -396,7 +396,7 @@ var SummaryReportController = {
               _context7.prev = 0;
               id = req.params.id;
               _context7.next = 4;
-              return _SummaryReport["default"].findOne({
+              return _summaryreport["default"].findOne({
                 where: {
                   id: id
                 }

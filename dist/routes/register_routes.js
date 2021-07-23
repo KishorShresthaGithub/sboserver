@@ -9,6 +9,8 @@ var _express = require("express");
 
 var _authcontroller = _interopRequireDefault(require("../controller/authcontroller"));
 
+var _basecontroller = _interopRequireDefault(require("../controller/basecontroller"));
+
 var _uploadcontroller = _interopRequireDefault(require("../controller/uploadcontroller"));
 
 var _upload = require("../helpers/upload");
@@ -38,10 +40,6 @@ var _snakes = _interopRequireDefault(require("./snakes"));
 var _summaryreport = _interopRequireDefault(require("./summaryreport"));
 
 var _users = _interopRequireDefault(require("./users"));
-
-var _url = _interopRequireDefault(require("../helpers/url"));
-
-var _basecontroller = _interopRequireDefault(require("../controller/basecontroller"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 

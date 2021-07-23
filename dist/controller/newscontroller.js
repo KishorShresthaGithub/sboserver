@@ -9,7 +9,7 @@ var _basecontroller = _interopRequireDefault(require("./basecontroller"));
 
 var _uploadcontroller = _interopRequireDefault(require("./uploadcontroller"));
 
-var _News = _interopRequireDefault(require("../models/News"));
+var _news = _interopRequireDefault(require("../models/news"));
 
 var _url = _interopRequireDefault(require("../helpers/url"));
 
@@ -48,7 +48,7 @@ var NewsController = {
               };
               if (limit) options.limit = parseInt(limit);
               _context.next = 6;
-              return _News["default"].findAll(options);
+              return _news["default"].findAll(options);
 
             case 6:
               Newss = _context.sent;
@@ -86,7 +86,7 @@ var NewsController = {
               _context2.prev = 0;
               slug = req.params.slug;
               _context2.next = 4;
-              return _News["default"].findOne({
+              return _news["default"].findOne({
                 where: {
                   slug: slug
                 }
@@ -153,7 +153,7 @@ var NewsController = {
 
             case 8:
               _context3.next = 10;
-              return _News["default"].create(_objectSpread(_objectSpread({}, req.body), {}, {
+              return _news["default"].create(_objectSpread(_objectSpread({}, req.body), {}, {
                 image: imageUrl
               }), {
                 skip: ["slug"]
@@ -205,7 +205,7 @@ var NewsController = {
               //TODO move to validation middleware
               id = req.params.id;
               _context4.next = 4;
-              return _News["default"].findOne({
+              return _news["default"].findOne({
                 where: {
                   id: id
                 }
@@ -293,7 +293,7 @@ var NewsController = {
               //TODO move to validation middleware
               id = req.params.id;
               _context5.next = 4;
-              return _News["default"].findOne({
+              return _news["default"].findOne({
                 where: {
                   id: id
                 }

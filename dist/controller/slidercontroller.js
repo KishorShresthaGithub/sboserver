@@ -9,7 +9,7 @@ var _basecontroller = _interopRequireDefault(require("./basecontroller"));
 
 var _uploadcontroller = _interopRequireDefault(require("./uploadcontroller"));
 
-var _Slider = _interopRequireDefault(require("../models/Slider"));
+var _slider = _interopRequireDefault(require("../models/slider"));
 
 var _url = _interopRequireDefault(require("../helpers/url"));
 
@@ -45,7 +45,7 @@ var SliderController = {
             case 0:
               _context.prev = 0;
               _context.next = 3;
-              return _Slider["default"].findAll({
+              return _slider["default"].findAll({
                 where: {
                   position: _defineProperty({}, _sequelize.Op.not, null)
                 },
@@ -88,7 +88,7 @@ var SliderController = {
               _context2.prev = 0;
               id = req.params.id;
               _context2.next = 4;
-              return _Slider["default"].findOne({
+              return _slider["default"].findOne({
                 where: {
                   id: id
                 }
@@ -155,7 +155,7 @@ var SliderController = {
 
             case 8:
               _context3.next = 10;
-              return _Slider["default"].create(_objectSpread(_objectSpread({}, req.body), {}, {
+              return _slider["default"].create(_objectSpread(_objectSpread({}, req.body), {}, {
                 image: imageUrl
               }));
 
@@ -205,7 +205,7 @@ var SliderController = {
               //TODO move to validation middleware
               id = req.params.id;
               _context4.next = 4;
-              return _Slider["default"].findOne({
+              return _slider["default"].findOne({
                 where: {
                   id: id
                 }
@@ -314,7 +314,7 @@ var SliderController = {
               //TODO move to validation middleware
               id = req.params.id;
               _context5.next = 4;
-              return _Slider["default"].findOne({
+              return _slider["default"].findOne({
                 where: {
                   id: id
                 }

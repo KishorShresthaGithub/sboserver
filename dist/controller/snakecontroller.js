@@ -9,11 +9,11 @@ var _basecontroller = _interopRequireDefault(require("./basecontroller"));
 
 var _uploadcontroller = _interopRequireDefault(require("./uploadcontroller"));
 
-var _Snake = _interopRequireDefault(require("../models/Snake"));
-
 var _url = _interopRequireDefault(require("../helpers/url"));
 
 var _sequelize = require("sequelize");
+
+var _snake = _interopRequireDefault(require("../models/snake"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
@@ -45,7 +45,7 @@ var SnakeController = {
             case 0:
               _context.prev = 0;
               _context.next = 3;
-              return _Snake["default"].findAll({
+              return _snake["default"].findAll({
                 order: [["name", "ASC"]]
               });
 
@@ -85,7 +85,7 @@ var SnakeController = {
               _context2.prev = 0;
               id = req.params.id;
               _context2.next = 4;
-              return _Snake["default"].findOne({
+              return _snake["default"].findOne({
                 where: {
                   id: id
                 }
@@ -152,7 +152,7 @@ var SnakeController = {
 
             case 8:
               _context3.next = 10;
-              return _Snake["default"].create(_objectSpread(_objectSpread({}, req.body), {}, {
+              return _snake["default"].create(_objectSpread(_objectSpread({}, req.body), {}, {
                 image: imageUrl
               }));
 
@@ -202,7 +202,7 @@ var SnakeController = {
               //TODO move to validation middleware
               id = req.params.id;
               _context4.next = 4;
-              return _Snake["default"].findOne({
+              return _snake["default"].findOne({
                 where: {
                   id: id
                 }
@@ -290,7 +290,7 @@ var SnakeController = {
               //TODO move to validation middleware
               id = req.params.id;
               _context5.next = 4;
-              return _Snake["default"].findOne({
+              return _snake["default"].findOne({
                 where: {
                   id: id
                 }
