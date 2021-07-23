@@ -67,3 +67,5 @@ typings/
 *.pdf
 
 unsamples/
+
+nodemon.json
