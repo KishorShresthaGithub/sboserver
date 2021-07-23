@@ -1,5 +1,6 @@
 import { Router } from "express";
 import AuthController from "../controller/authcontroller";
+import BaseController from "../controller/basecontroller";
 import UploadController from "../controller/uploadcontroller";
 import { imageUpload } from "../helpers/upload";
 import authenticateToken from "../middleware/authenticate_token";
@@ -18,8 +19,6 @@ import sliderRouter from "./slider";
 import snakeRouter from "./snakes";
 import summaryRouter from "./summaryreport";
 import usersRouter from "./users";
-import siteurl from "../helpers/url";
-import BaseController from "../controller/basecontroller";
 
 const router = Router();
 
@@ -47,7 +46,6 @@ router.use("/sliders", sliderRouter);
 router.use("/snakes", snakeRouter);
 router.use("/gallery", galleryRouter);
 router.use("/summaryreport", summaryRouter);
-
 
 router.post(
   "/upload_file",

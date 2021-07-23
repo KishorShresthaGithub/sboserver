@@ -1,5 +1,5 @@
 import { Router } from "express";
-import SliderController from "../controller/Slidercontroller";
+import SliderController from "../controller/slidercontroller";
 import { imageUpload } from "../helpers/upload";
 import authenticateToken from "../middleware/authenticate_token";
 import {

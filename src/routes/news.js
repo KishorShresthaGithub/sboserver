@@ -1,5 +1,5 @@
 import { Router } from "express";
-import NewsController from "../controller/Newscontroller";
+import NewsController from "../controller/newscontroller";
 import { imageUpload } from "../helpers/upload";
 import authenticateToken from "../middleware/authenticate_token";
 import {

@@ -6,7 +6,7 @@ import {
   updateValidation,
 } from "../middleware/requests/summaryreport";
 import { validationMid } from "../middleware/validation";
-import SummaryReportController from "./../controller/SummaryReportcontroller";
+import SummaryReportController from "./../controller/summaryreportcontroller";
 
 const router = Router();
 
