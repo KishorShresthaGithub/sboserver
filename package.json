@@ -6,7 +6,7 @@
     "dev": "cross-env NODE_ENV=development kill-port 3000 && nodemon --exec npx babel-node --trace-warnings ./src/bin/www",
     "clean": "rimraf dist",
     "build-server": "npm run clean && babel ./src --out-dir dist --copy-files",
-    "start": "cross-env NODE_ENV=production pm2 start ./dist/bin/www.js"
+    "start": "node ./dist/bin/www.js"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
