@@ -66,6 +66,7 @@ typings/
 *.webp
 *.pdf
 
-unsamples/
 
 dist/
+unsamples/
+
