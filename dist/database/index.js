@@ -16,7 +16,7 @@ var sqlize = new _sequelize.Sequelize(database, username, password, {
   protocol: process.env.DB_PROTOCOL || "mysql",
   // logging: false,
   dialectOptions: {
-    ssl: true,
+    ssl: { require: true, rejectUnauthorized: false },
   },
 });
 var _default = sqlize;

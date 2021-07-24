@@ -10,7 +10,7 @@ const sqlize = new Sequelize(database, username, password, {
   protocol: process.env.DB_PROTOCOL || "mysql",
   // logging: false,
   dialectOptions: {
-    ssl: true,
+    ssl: { require: true, rejectUnauthorized: false },
   },
 });
 
