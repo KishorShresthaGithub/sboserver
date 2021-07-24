@@ -5,7 +5,6 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports["default"] = void 0;
 var BaseController = {
-  //TODO: sanitize strings
   sendResponse: function sendResponse(res, data, message, status) {
     return res.status(status || 200).json({
       data: data,

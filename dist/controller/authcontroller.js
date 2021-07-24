@@ -60,7 +60,9 @@ var AuthController = {
                 break;
               }
 
-              return _context.abrupt("return", _basecontroller["default"].sendError(res, null, "User not found", 401));
+              return _context.abrupt("return", _basecontroller["default"].sendError(res, {
+                errors: ["User not found"]
+              }, "User not found", 401));
 
             case 7:
               _context.next = 9;
@@ -72,7 +74,9 @@ var AuthController = {
                 break;
               }
 
-              return _context.abrupt("return", _basecontroller["default"].sendError(res, null, "User Credentials do not match", 401));
+              return _context.abrupt("return", _basecontroller["default"].sendError(res, {
+                errors: " User Credentials do not match "
+              }, "User Credentials do not match", 401));
 
             case 11:
               token = AuthController.generateAccessToken(user.toJSON());

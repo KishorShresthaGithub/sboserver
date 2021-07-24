@@ -21,6 +21,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 
 var router = (0, _express.Router)();
 router.get("/", _slidercontroller["default"].index);
+router.get("/hero", _slidercontroller["default"].hero);
 router.get("/:slug", _slidercontroller["default"].show);
 router.post("/", _authenticate_token["default"], _upload.imageUpload.single("image"), _slider.createValidation, _validation.validationMid, _slidercontroller["default"].save);
 router.put("/:id", _authenticate_token["default"], _upload.imageUpload.single("image"), _slider.updateValidation, _validation.validationMid, _slidercontroller["default"].update);

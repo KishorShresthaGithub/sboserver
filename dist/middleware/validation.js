@@ -15,9 +15,7 @@ var validationMid = function validationMid(req, res, next) {
   var errors = (0, _expressValidator.validationResult)(req);
 
   if (!errors.isEmpty()) {
-    return _basecontroller["default"].sendError(res, {
-      errors: errors.array()
-    }, "Validation Errors", 400);
+    return _basecontroller["default"].sendError(res, errors.array(), "Validation Errors", 400);
   }
 
   next();
