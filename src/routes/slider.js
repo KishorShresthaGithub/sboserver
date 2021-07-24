@@ -10,6 +10,7 @@ import { validationMid } from "../middleware/validation";
 
 const router = Router();
 router.get("/", SliderController.index);
+router.get("/hero", SliderController.hero);
 router.get("/:slug", SliderController.show);
 
 router.post(

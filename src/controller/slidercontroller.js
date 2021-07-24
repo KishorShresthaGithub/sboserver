@@ -15,9 +15,35 @@ const SliderController = {
    */
   async index(req, res) {
     try {
-      const Sliders = await Slider.findAll({
-        where: { position: { [Op.not]: null } },
+      const { limit } = req.query;
+
+      let options = {
         order: [["position", "ASC"]],
+      };
+
+      if (limit) options.limit = parseInt(limit);
+
+      const Sliders = await Slider.findAll(options);
+
+      return BaseController.sendResponse(res, Sliders, "Sliders listing");
+    } catch (error) {
+      console.log(error);
+      return BaseController.sendError(res, error);
+    }
+  },
+  async hero(req, res) {
+    try {
+      const { limit } = req.query;
+
+      let options = {
+        order: [["position", "ASC"]],
+      };
+
+      if (limit) options.limit = parseInt(limit);
+
+      const Sliders = await Slider.findAll({
+        where: { position: { [Op.and]: [{ [Op.not]: null }, { [Op.gt]: 0 }] } },
+        ...options,
       });
 
       return BaseController.sendResponse(res, Sliders, "Sliders listing");
@@ -35,11 +61,11 @@ const SliderController = {
    */
   async show(req, res) {
     try {
-      const { id } = req.params;
+      const { slug } = req.params;
 
       const ev = await Slider.findOne({
         where: {
-          id,
+          id: slug,
         },
       });
 

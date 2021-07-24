@@ -25,12 +25,17 @@ const AuthController = {
       });
 
       if (!user)
-        return BaseController.sendError(res, null, "User not found", 401);
+        return BaseController.sendError(
+          res,
+          { errors: ["User not found"] },
+          "User not found",
+          401
+        );
 
       if (!(await bcrypt.compare(password, user.password)))
         return BaseController.sendError(
           res,
-          null,
+          { errors: " User Credentials do not match " },
           "User Credentials do not match",
           401
         );
