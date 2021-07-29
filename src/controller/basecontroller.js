@@ -1,5 +1,4 @@
 const BaseController = {
- 
   sendResponse(res, data, message, status) {
     return res.status(status || 200).json({
       data: data,

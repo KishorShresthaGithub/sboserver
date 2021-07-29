@@ -95,7 +95,6 @@ const SnakeController = {
    */
   async update(req, res) {
     try {
-      //TODO move to validation middleware
       const { id } = req.params;
 
       const ev = await Snake.findOne({
@@ -108,7 +107,7 @@ const SnakeController = {
 
       //   const { title, date, location, time, description } = req.body;
       const file = req.file || null;
-      //TODO validation empty body;
+
       let updatedata = req.body;
 
       let imageUrl;
@@ -129,7 +128,7 @@ const SnakeController = {
       return BaseController.sendResponse(
         res,
         ev.toJSON(),
-        "Snake successfully added"
+        "Snake successfully updated"
       );
     } catch (error) {
       console.log(error);
@@ -155,8 +154,10 @@ const SnakeController = {
 
       if (!ev) return BaseController.sendError(res, {}, "Snake not found", 404);
 
-      let deleteData = await ev.destroy();
+      if (!(await UploadController.unlinkUrl(ev.image)))
+        console.log(ev.image + " not deleted");
 
+      let deleteData = await ev.destroy();
       if (!deleteData) throw Error("Something went wrong when deleteing item");
 
       return BaseController.sendResponse(

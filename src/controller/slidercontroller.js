@@ -62,7 +62,6 @@ const SliderController = {
   async show(req, res) {
     try {
       const { slug } = req.params;
-
       const ev = await Slider.findOne({
         where: {
           id: slug,
@@ -95,6 +94,13 @@ const SliderController = {
         const ref = await UploadController.compressImage(file);
         //image url
         imageUrl += `/public/images/${ref}`;
+      } else {
+        return BaseController.sendError(
+          res,
+          {},
+          "No image uploaded for slider",
+          400
+        );
       }
 
       const ev = await Slider.create({ ...req.body, image: imageUrl });
@@ -121,7 +127,6 @@ const SliderController = {
    */
   async update(req, res) {
     try {
-      //TODO move to validation middleware
       const { id } = req.params;
 
       const ev = await Slider.findOne({
@@ -159,7 +164,7 @@ const SliderController = {
       return BaseController.sendResponse(
         res,
         ev.toJSON(),
-        "Slider successfully added"
+        "Slider successfully updated"
       );
     } catch (error) {
       console.log(error);
@@ -174,7 +179,6 @@ const SliderController = {
    */
   async destroy(req, res) {
     try {
-      //TODO move to validation middleware
       const { id } = req.params;
 
       const ev = await Slider.findOne({
@@ -187,7 +191,7 @@ const SliderController = {
         return BaseController.sendError(res, {}, "Slider not found", 404);
 
       if (!(await UploadController.unlinkUrl(ev.image)))
-        throw new Error("File not deleted");
+        console.log(ev.image + " not deleted");
 
       let deleteData = await ev.destroy();
 

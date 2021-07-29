@@ -3,6 +3,13 @@ import Link from "../models/link";
 import BaseController from "./basecontroller";
 
 const LinkController = {
+  /**
+   *
+   * Method to show all links with sub links
+   * @param {Request} req
+   * @param {Response} res
+   * @returns
+   */
   async index(req, res) {
     try {
       const dblinks = await Link.findAll({
@@ -36,6 +43,13 @@ const LinkController = {
       return BaseController.sendError(res, error);
     }
   },
+  /**
+   *
+   * Method to show all links
+   * @param {Request} req
+   * @param {Response} res
+   * @returns
+   */
   async all(req, res) {
     try {
       const dblinks = await Link.findAll({
@@ -62,7 +76,13 @@ const LinkController = {
       return BaseController.sendError(res, error);
     }
   },
-
+  /**
+   *
+   * Method to show single link data
+   * @param {Request} req
+   * @param {Response} res
+   * @returns
+   */
   async show(req, res) {
     try {
       const dblink = await Link.findOne({
@@ -90,7 +110,13 @@ const LinkController = {
       return BaseController.sendError(res, error);
     }
   },
-
+  /**
+   *
+   * Method to save links
+   * @param {Request} req
+   * @param {Response} res
+   * @returns
+   */
   async save(req, res) {
     try {
       const link = await Link.create(req.body);
@@ -102,7 +128,13 @@ const LinkController = {
       return BaseController.sendError(res, error);
     }
   },
-
+  /**
+   *
+   * Method to updated links and link pages
+   * @param {Request} req
+   * @param {Response} res
+   * @returns
+   */
   async update(req, res) {
     try {
       const link = await Link.findOne({
@@ -121,7 +153,13 @@ const LinkController = {
       return BaseController.sendError(res, error);
     }
   },
-
+  /**
+   *
+   * Method to delete and reset parent links
+   * @param {Request} req
+   * @param {Response} res
+   * @returns
+   */
   async delete(req, res) {
     try {
       const link = await Link.findOne({

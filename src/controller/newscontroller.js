@@ -102,7 +102,6 @@ const NewsController = {
    */
   async update(req, res) {
     try {
-      //TODO move to validation middleware
       const { id } = req.params;
 
       const ev = await News.findOne({
@@ -115,7 +114,7 @@ const NewsController = {
 
       //   const { title, date, location, time, description } = req.body;
       const file = req.file || null;
-      //TODO validation empty body;
+
       let updatedata = req.body;
 
       let imageUrl;
@@ -136,7 +135,7 @@ const NewsController = {
       return BaseController.sendResponse(
         res,
         ev.toJSON(),
-        "News successfully added"
+        "News successfully updated"
       );
     } catch (error) {
       console.log(error);
@@ -151,7 +150,7 @@ const NewsController = {
    */
   async destroy(req, res) {
     try {
-      //TODO move to validation middleware
+     
       const { id } = req.params;
 
       const ev = await News.findOne({
@@ -163,7 +162,6 @@ const NewsController = {
       if (!ev) return BaseController.sendError(res, {}, "News not found", 404);
 
       let deleteData = await ev.destroy();
-
       if (!deleteData) throw Error("Something went wrong when deleteing item");
 
       return BaseController.sendResponse(

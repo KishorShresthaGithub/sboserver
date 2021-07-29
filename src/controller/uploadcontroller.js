@@ -16,7 +16,9 @@ const UploadController = {
       if (!req.file) return res.sendStatus(400);
 
       //upload image
-      const ref = await UploadController.compressImage(req.file);
+      const ref = await UploadController.compressImage(req.file).catch(
+        console.log
+      );
 
       let url = siteurl;
       //image url
@@ -52,8 +54,7 @@ const UploadController = {
 
       fs.readFile(file.path, async (err, data) => {
         if (err) {
-          UploadController.unlinkFile(file.path);
-
+          UploadController.unlinkFile(file.path).catch(console.log);
           return;
         }
         //compress image
@@ -72,7 +73,7 @@ const UploadController = {
             });
           });
         //unlink original file
-        UploadController.unlinkFile(file.path);
+        UploadController.unlinkFile(file.path).catch(console.log);
       });
 
       return ref;
@@ -94,7 +95,7 @@ const UploadController = {
 
       //mapping all compression promises
       const upload = files.map((file) => {
-        return UploadController.compressImage(file);
+        return UploadController.compressImage(file).catch(console.log);
       });
 
       const urls = await Promise.all(upload);
@@ -137,21 +138,26 @@ const UploadController = {
    * @returns
    */
   async unlinkFile(file) {
-    if (!fs.existsSync(file)) {
-      console.log("File not found");
-      return;
-    }
-
-    fs.unlink(file, (err) => {
-      if (err) {
-        console.log(err, " Something went wrong");
+    try {
+      if (!fs.existsSync(file)) {
+        console.log("File not found");
         return;
       }
-      console.log("File has been deleted");
-      return "File deleted";
-    });
 
-    return true;
+      fs.unlink(file, (err) => {
+        if (err) {
+          console.log(err, " Something went wrong");
+          return;
+        }
+        console.log(file + " File has been deleted");
+        return "File deleted";
+      });
+
+      return true;
+    } catch (error) {
+      console.log(error);
+      return;
+    }
   },
   /**
    * Method to delete files from file url
@@ -160,16 +166,21 @@ const UploadController = {
    * @returns
    */
   async unlinkUrl(url) {
-    let image = new URL(url);
+    try {
+      let image = new URL(url);
 
-    if (image.pathname === "/public/placeholder_logo.svg") return true;
+      if (image.pathname === "/public/placeholder_logo.svg") return true;
+      //remove empty strings
+      let imagepath = image.pathname.split("/").filter(Boolean);
+      imagepath = [__dirname, "../", ...imagepath];
 
-    let imagepath = image.pathname.split("/").filter(Boolean);
-    imagepath = [__dirname, "../", ...imagepath];
+      let filepath = imagepath.reduce((a, i) => path.join(a, i));
 
-    let filepath = imagepath.reduce((a, i) => path.join(a, i));
-
-    return await UploadController.unlinkFile(filepath).catch(console.log);
+      return await UploadController.unlinkFile(filepath);
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
   },
 };
 

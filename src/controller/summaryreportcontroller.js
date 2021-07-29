@@ -28,7 +28,13 @@ const SummaryReportController = {
       return BaseController.sendError(res, error);
     }
   },
-
+  /**
+   * Method to list summary report with show true
+   *
+   * @param {Request} req
+   * @param {Response} res
+   * @returns
+   */
   async summaryReport(req, res) {
     try {
       const ev = await SummaryReport.findOne({
@@ -105,10 +111,11 @@ const SummaryReportController = {
       if (file) {
         const ref = await UploadController.uploadPDF(file);
         input = { ...input, pdf_link: ref.pdf_url };
+      } else {
+        return BaseController.sendError(res, {}, "No pdf uploaded");
       }
 
       const ev = await SummaryReport.create(input);
-
       if (!ev) throw Error();
 
       return BaseController.sendResponse(
@@ -131,9 +138,7 @@ const SummaryReportController = {
    */
   async update(req, res) {
     try {
-      //TODO move to validation middleware
       const { id } = req.params;
-
       const ev = await SummaryReport.findOne({
         where: {
           id,
@@ -148,9 +153,7 @@ const SummaryReportController = {
           404
         );
 
-      //   const { title, date, location, time, description } = req.body;
       const file = req.file || null;
-      //TODO validation empty body;
       let updatedata = req.body;
 
       if (file) {
@@ -165,7 +168,7 @@ const SummaryReportController = {
       return BaseController.sendResponse(
         res,
         ev.toJSON(),
-        "SummaryReport successfully added"
+        "SummaryReport successfully updated"
       );
     } catch (error) {
       console.log(error);
