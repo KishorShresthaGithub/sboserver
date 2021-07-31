@@ -2,6 +2,8 @@ import BaseController from "./basecontroller";
 import UploadController from "./uploadcontroller";
 import SummaryReport from "./../models/summaryreport";
 import url from "./../helpers/url";
+import path from "path";
+import fs from "fs";
 
 const SummaryReportController = {
   /**
@@ -232,13 +234,13 @@ const SummaryReportController = {
           404
         );
 
-      let image = new URL(url);
+      let image = new URL(ev.pdf_link);
       let imagepath = image.pathname.split("/").filter(Boolean);
       imagepath = [__dirname, "../", ...imagepath];
 
       let filepath = imagepath.reduce((a, i) => path.join(a, i));
 
-      if (!fs.existsSync(file)) {
+      if (!fs.existsSync(filepath)) {
         console.log("File not found");
         return BaseController.sendError(res, {}, "File not found", 500);
       }

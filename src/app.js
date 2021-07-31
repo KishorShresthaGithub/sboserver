@@ -21,7 +21,11 @@ app.use(logger("dev"));
 app.use(json());
 app.use(urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(cors());
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 
 if (process.env.NODE_ENV === "production") {
   app.use(compression());
