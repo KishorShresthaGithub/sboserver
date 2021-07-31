@@ -2,7 +2,7 @@ import { check } from "express-validator";
 
 export const createValidation = [
   check("title").notEmpty().withMessage("Title should not be empty").trim(),
-  check("show").optional().isBoolean(),
+  check("show").optional().toBoolean(),
   check("description")
     .notEmpty()
     .withMessage("Description should not be empty"),
@@ -10,6 +10,6 @@ export const createValidation = [
 
 export const updateValidation = [
   check("title").optional().trim(),
-  check("show").optional().isBoolean(),
+  check("show").optional().toBoolean(),
   check("description").optional(),
 ];

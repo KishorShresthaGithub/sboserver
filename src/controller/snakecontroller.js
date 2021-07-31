@@ -16,9 +16,15 @@ const SnakeController = {
    */
   async index(req, res) {
     try {
-      const Snakes = await Snake.findAll({
+      const { limit } = req.query;
+
+      let options = {
         order: [["name", "ASC"]],
-      });
+      };
+
+      if (limit) options.limit = parseInt(limit);
+
+      const Snakes = await Snake.findAll(options);
 
       return BaseController.sendResponse(res, Snakes, "Snakes listing");
     } catch (error) {

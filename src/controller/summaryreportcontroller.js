@@ -41,6 +41,7 @@ const SummaryReportController = {
         where: {
           show: true,
         },
+        order: [["created_at", "DESC"]],
       });
 
       if (!ev)
