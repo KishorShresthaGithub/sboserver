@@ -1,9 +1,8 @@
+import fs from "fs";
+import path from "path";
+import SummaryReport from "./../models/summaryreport";
 import BaseController from "./basecontroller";
 import UploadController from "./uploadcontroller";
-import SummaryReport from "./../models/summaryreport";
-import url from "./../helpers/url";
-import path from "path";
-import fs from "fs";
 
 const SummaryReportController = {
   /**
@@ -16,9 +15,15 @@ const SummaryReportController = {
    */
   async index(req, res) {
     try {
-      const SummaryReports = await SummaryReport.findAll({
+      const { limit } = req.query;
+
+      let options = {
         order: [["created_at", "DESC"]],
-      });
+      };
+
+      if (limit) options.limit = parseInt(limit);
+
+      const SummaryReports = await SummaryReport.findAll(options);
 
       return BaseController.sendResponse(
         res,
@@ -53,6 +58,8 @@ const SummaryReportController = {
           "SummaryReport not found",
           404
         );
+
+      await SummaryReportController.firstPage(ev.pdf_link);
 
       return BaseController.sendResponse(
         res,
@@ -249,6 +256,18 @@ const SummaryReportController = {
     } catch (error) {
       console.log(error);
       return BaseController.sendError(res, error);
+    }
+  },
+
+  async firstPage(url) {
+    try {
+      let image = new URL(url);
+      let imagepath = image.pathname.split("/").filter(Boolean);
+      imagepath = [__dirname, "../", ...imagepath];
+
+      let filepath = imagepath.reduce((a, i) => path.join(a, i));
+    } catch (error) {
+      console.log(error);
     }
   },
 };

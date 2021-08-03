@@ -82,7 +82,7 @@ const AVCcontroller = {
           slug,
         },
       });
-      console.log(ev);
+      
 
       if (!ev)
         return BaseController.sendError(res, {}, "AVCenter not found", 404);

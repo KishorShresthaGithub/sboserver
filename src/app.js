@@ -11,7 +11,7 @@ const app = express();
 
 // (async () => {
 //   try {
-//     await sqlize.sync();
+//     await sqlize.sync({ alter: true });
 //   } catch (error) {
 //     console.log(error);
 //   }
@@ -21,17 +21,13 @@ app.use(logger("dev"));
 app.use(json());
 app.use(urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(
-  cors({
-    origin: "*",
-  })
-);
+app.use(cors());
 
 if (process.env.NODE_ENV === "production") {
   app.use(compression());
 }
 
-app.use("/public", express.static(path.join(__dirname, "public")));
+app.use("/public", cors(), express.static(path.join(__dirname, "public")));
 app.use("/", express.static(path.join(__dirname, "public")));
 
 app.use("/api", router);

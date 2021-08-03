@@ -15,7 +15,7 @@ News.init(
       allowNull: false,
       defaultValue: `${url}/public/placeholder_logo.svg`,
     },
-    description: { type: DataTypes.STRING, allowNull: false },
+    description: { type: DataTypes.TEXT, allowNull: false },
   },
   {
     sequelize: sqlize,

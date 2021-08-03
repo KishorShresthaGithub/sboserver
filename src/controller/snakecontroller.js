@@ -41,11 +41,11 @@ const SnakeController = {
    */
   async show(req, res) {
     try {
-      const { id } = req.params;
+      const { slug } = req.params;
 
       const ev = await Snake.findOne({
         where: {
-          id,
+          id: slug,
         },
       });
 
