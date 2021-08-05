@@ -7,7 +7,7 @@ export const image_storage = multer.diskStorage({
   destination(req, file, cb) {
     const pa = path.resolve(__dirname, "../public", "images");
     if (!fs.existsSync(pa)) {
-      fs.mkdirSync(pa);
+      fs.mkdirSync(pa, { recursive: true });
     }
     cb(null, pa);
   },
@@ -38,7 +38,7 @@ export const pdf_storage = multer.diskStorage({
   destination(req, file, cb) {
     const pa = path.resolve(__dirname, "../public", "pdf");
     if (!fs.existsSync(pa)) {
-      fs.mkdirSync(pa);
+      fs.mkdirSync(pa, { recursive: true });
     }
     cb(null, pa);
   },
