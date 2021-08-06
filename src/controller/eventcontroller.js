@@ -18,7 +18,7 @@ const EventController = {
       const { limit } = req.query;
 
       let options = {
-        order: [["start_date", "ASC"]],
+        order: [["created_at", "DESC"]],
       };
 
       if (limit) options.limit = parseInt(limit);

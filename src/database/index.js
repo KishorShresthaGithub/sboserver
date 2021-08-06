@@ -8,7 +8,7 @@ const sqlize = new Sequelize(database, username, password, {
   dialect: process.env.DB_DIALECT || "mysql",
   host: process.env.DB_HOST || "localhost",
   protocol: process.env.DB_PROTOCOL || "mysql",
-  // logging: false,
+  logging: false,
   dialectOptions: {
     ssl: { require: true, rejectUnauthorized: false },
   },

@@ -11,7 +11,7 @@ const app = express();
 
 // (async () => {
 //   try {
-//     await sqlize.sync({ alter: true });
+//     await sqlize.sync({ force: true });
 //   } catch (error) {
 //     console.log(error);
 //   }

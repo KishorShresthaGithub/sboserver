@@ -7,8 +7,17 @@ import UploadController from "./uploadcontroller";
 const GalleryController = {
   async index(req, res) {
     try {
+      const { limit } = req.query;
+
+      let options = {
+        order: [["created_at", "DESC"]],
+      };
+
+      if (limit) options.limit = parseInt(limit);
+
       const gallery = await Gallery.findAll({
         include: [{ model: GalleryImage }],
+        ...options,
       });
 
       return BaseController.sendResponse(res, gallery, "");

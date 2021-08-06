@@ -13,11 +13,10 @@ const LinkController = {
   async index(req, res) {
     try {
       const dblinks = await Link.findAll({
-        order: [["parent_link", "ASC"]],
-        raw: true,
+        order: [["position", "ASC"]],
       });
 
-      let links = [...dblinks];
+      /* let links = [...dblinks];
 
       links = links.map((e) => {
         e.sub_links = [];
@@ -35,9 +34,9 @@ const LinkController = {
         }
       }
 
-      temp = temp.sort((a, b) => parseInt(a.position) - parseInt(b.position));
+      temp = temp.sort((a, b) => parseInt(a.position) - parseInt(b.position)); */
 
-      return BaseController.sendResponse(res, temp, "Navigation");
+      return BaseController.sendResponse(res, dblinks, "Navigation");
     } catch (error) {
       console.log(error);
       return BaseController.sendError(res, error);
@@ -56,19 +55,19 @@ const LinkController = {
         order: [["parent_link", "ASC"]],
         raw: true,
       });
-      const links = [...dblinks];
+      // const links = [...dblinks];
 
-      let temp = [];
+      // let temp = [];
 
-      for (let i = 0; i < links.length; i++) {
-        if (links[i].parent_link !== null) {
-          let parent = links.find((res) => res.id === links[i].parent_link);
-          links[i].link = `${parent.link}/${links[i].link}`;
-        }
-        temp.push(links[i]);
-      }
+      // for (let i = 0; i < links.length; i++) {
+      //   if (links[i].parent_link !== null) {
+      //     let parent = links.find((res) => res.id === links[i].parent_link);
+      //     links[i].link = `${parent.link}/${links[i].link}`;
+      //   }
+      //   temp.push(links[i]);
+      // }
 
-      temp = temp.sort((a, b) => parseInt(a.position) - parseInt(b.position));
+      // temp = temp.sort((a, b) => parseInt(a.position) - parseInt(b.position));
 
       return BaseController.sendResponse(res, temp, "Navigation");
     } catch (error) {
@@ -86,25 +85,24 @@ const LinkController = {
   async show(req, res) {
     try {
       const dblink = await Link.findOne({
-        where: { id: req.params.id },
-        raw: true,
+        where: { link: req.params.url },
       });
 
       if (!dblink)
         return BaseController.sendError(res, null, "Link not found", 404);
 
-      const link = { ...dblink };
+      // const link = { ...dblink };
 
-      if (link.parent_link) {
-        link.parent = await Link.findOne({
-          where: { id: link.parent_link },
-          raw: true,
-        });
+      // if (link.parent_link) {
+      //   link.parent = await Link.findOne({
+      //     where: { id: link.parent_link },
+      //     raw: true,
+      //   });
 
-        delete link.parent_link;
-      }
+      //   delete link.parent_link;
+      // }
 
-      return BaseController.sendResponse(res, link, "Single link listing");
+      return BaseController.sendResponse(res, dblink, "Single link listing");
     } catch (error) {
       console.log(error);
       return BaseController.sendError(res, error);
