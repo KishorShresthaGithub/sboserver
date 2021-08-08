@@ -60,12 +60,6 @@ typings/
 # next.js build output
 .next
 
-*.jpg
-*.png
-*.svg
-*.webp
-*.pdf
-
 unsamples/
 
 nodemon.json
