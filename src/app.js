@@ -9,13 +9,13 @@ import sqlize from "./database";
 
 const app = express();
 
-// (async () => {
-//   try {
-//     await sqlize.sync({ force: true });
-//   } catch (error) {
-//     console.log(error);
-//   }
-// })();
+(async () => {
+  try {
+    await sqlize.sync();
+  } catch (error) {
+    console.log(error);
+  }
+})();
 
 app.use(logger("dev"));
 app.use(json());
